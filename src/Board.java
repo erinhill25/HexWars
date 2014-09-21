@@ -35,12 +35,8 @@ public class Board extends Entity {
 	protected int height = r * 2; 
 	protected int t = (int) (0.5 * sideLength);
 	protected int width = 2 * t + sideLength;
-	protected boolean hasShown = false;
-	
-	public Board() {
-		System.out.println(r + " " + t + " " + height + " " + width);
-	}
-	
+
+
 	public int max(int one, int two) {
 		return (one > two) ? one : two;
 	}
@@ -79,8 +75,7 @@ public class Board extends Entity {
 				
 			}
 		}
-		
-		hasShown = true;
+
 	}
 
 }
