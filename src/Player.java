@@ -17,9 +17,9 @@ public class Player extends Entity {
 	
 	public void render(Graphics2D g) {
 		
-		g.setPaint(new GradientPaint(0, 0, new Color(0, 150, 0), 20, 20,
-		        new Color(0, 150, 0, 0), true));
-		 g.fillRect(x, y, 200, 200);
+		//g.setPaint(new GradientPaint(0, 0, new Color(0, 150, 0), 20, 20,
+		       // new Color(0, 150, 0, 0), true));
+		// g.fillRect(x, y, 200, 200);
 		
 	}
 }

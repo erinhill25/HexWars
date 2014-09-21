@@ -30,7 +30,9 @@ public class Game extends JPanel {
 	public Game() {
 		view = new View();
 		player= new Player();
+		Board board = new Board();
 		view.add(player);
+		view.add(board);
 		Controller control = new Controller();
 		control.setPlayer(player);
 		this.addMouseListener(control);
@@ -44,7 +46,7 @@ public class Game extends JPanel {
 		    
 		    g.setPaint(new GradientPaint(0, 0, new Color(150, 0, 0), WIDTH, HEIGHT,
 		        new Color(200, 200, 255)));
-		    g.fillRect(250, 0, WIDTH, HEIGHT);
+		  //  g.fillRect(250, 0, WIDTH, HEIGHT);
 		    view.update(g);
 		    
 	 }
@@ -59,9 +61,6 @@ public class Game extends JPanel {
 			 diff /= 1000000; //Nano to milliseconds
 			 
 			 if(diff > (1000 / 60)) {
-				// System.out.println("paint");
-				 //int playerx = player.getX();
-				 //player.setX(playerx+3);
 				 repaint();
 				 lastTime = now;
 			 }
