@@ -18,7 +18,7 @@ public class Board extends Entity {
 	
 	
 	protected int[][] board = 
-		{ {0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0},
+		{   {0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0},
 			{0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0},
 			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
 			{0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
@@ -31,19 +31,14 @@ public class Board extends Entity {
 			{0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0 } };
 	
 	protected int sideLength = 50; 
-	protected int r = (int) (0.8660254 * sideLength);
+	protected int r = (int) (0.8660254 * sideLength); //cos 30 * sidelength = r
 	protected int height = r * 2; 
-	protected int t = (int) (0.5 * sideLength);
+	protected int t = (int) (0.5 * sideLength); //sin 30 * sidelength = t
 	protected int width = 2 * t + sideLength;
 
-
-	public int max(int one, int two) {
-		return (one > two) ? one : two;
-	}
 	
 	public Polygon drawHex(int x, int y) {
 
-		
 		y = y * height;
 		y = (x % 2 == 1) ? y+(r) : y; // odd rows offset
 		x = x * (sideLength + t); 

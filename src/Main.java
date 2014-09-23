@@ -16,7 +16,7 @@ public class Main {
 		      }
 		    });
 		    f.setContentPane(game);
-		    f.setSize(1024,800);
+		    f.setSize(1500,1080);
 		    f.setVisible(true);
 		    
 		    game.run();
