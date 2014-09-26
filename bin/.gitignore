@@ -1,8 +1,2 @@
-/Board.class
-/Controller.class
-/Entity.class
-/Game.class
-/Main$1.class
-/Main.class
-/Player.class
-/View.class
+/Tile.class
+/Tile$States.class
