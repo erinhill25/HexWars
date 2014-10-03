@@ -37,7 +37,7 @@ public class Board extends Entity {
 	
 	int[] startColors = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 };
 	
-	protected int sideLength = 50; 
+	protected int sideLength = 48; 
 	protected int r = (int) (0.8660254 * sideLength); //cos 30 * sidelength = r
 	protected int height = r * 2; 
 	protected int t = (int) (0.5 * sideLength); //sin 30 * sidelength = t

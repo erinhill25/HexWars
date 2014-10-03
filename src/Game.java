@@ -48,7 +48,7 @@ public class Game extends JPanel {
 		        new Color(200, 200, 255)));
 		  //  g.fillRect(250, 0, WIDTH, HEIGHT);
 		    view.update(g);
-		    
+		    g.dispose();
 	 }
 	 
 	 public void run() {
