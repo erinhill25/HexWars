@@ -5,9 +5,11 @@ import java.awt.event.*;
 public class Controller implements MouseListener {
 
 	Player player;
+	Board board;
 	
-	public void setPlayer(Player player) {
+	public void setPlayer(Player player, Board board) {
 		this.player = player;
+		this.board = board;
 	}
 
 	
@@ -15,6 +17,8 @@ public class Controller implements MouseListener {
 		 	System.out.println("click");
 	      	player.setX(e.getX());
 	      	player.setY(e.getY());
+	      	
+	      	board.showTileClicked(e.getX(),e.getY()); 
 	    }
 	 
 	 public void mousePressed(MouseEvent e) {

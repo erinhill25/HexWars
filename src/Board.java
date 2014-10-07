@@ -52,17 +52,17 @@ public class Board extends Entity {
 		//Create tiles with polygon and color
 		for(int x=0;x<board.length;x++) {
 				
-				int startColor = startColors[x];
+				int startColor = (x % 2 == 0) ? 1 : 0;
 				for(int i=0;i<board[x].length;i++) {
 					
 					if(board[x][i] > 0) {
 						Polygon hex = drawHex(i, x);
 						if(board[x][i] == 2) {
-							tiles.add(new Tile(hex, Color.black, Tile.States.INACTIVE));
+							tiles.add(new Tile(hex, Color.black, false, i, x));
 						}
 						else
 						{
-							tiles.add(new Tile(hex, colors[startColor], Tile.States.ACTIVE));
+							tiles.add(new Tile(hex, colors[startColor], true, i, x));
 						}
 					}
 					startColor++;
@@ -107,6 +107,61 @@ public class Board extends Entity {
 			tile.render(g);
 			
 		}
+		
+	}
+
+	
+	public void highlightTiles(Tile base) {
+		
+		int x = base.getX();
+		int y = base.getY();
+		
+		int[][] highlights = { {x+1, y}, {x-1, y}, {x, y+1}, {x+1, y+1}, {x, y-1}, {x+1, y-1}};
+		
+		if(y % 2 == 0) {
+			
+			highlights[3][0] = x;
+			highlights[2][0] = x-1;
+			highlights[4][0] = x-1;
+			highlights[5][0] =  x;
+		}
+		
+		for(Tile tile : tiles) {
+			
+			for(int z = 0; z < highlights.length; z++) {
+				
+				int findX = highlights[z][0];
+				int findY = highlights[z][1];
+					
+				if(tile.getX() == findX && tile.getY() == findY && tile.isActive()) {
+						tile.setAccessible(true);
+
+				
+				}
+			
+		   }
+		}
+		
+	}
+	
+	public void showTileClicked(int x, int y) {
+		
+		
+		Tile clicked = null;
+		for(Tile tile : tiles) {
+			
+			tile.setHiglighted(false);
+			tile.setAccessible(false);
+			if(tile.getPoly().contains(x, y)) {
+				tile.setHiglighted(true);
+				clicked = tile;
+				
+			}
+		}
+		
+		highlightTiles(clicked);
+		
+		
 		
 	}
 

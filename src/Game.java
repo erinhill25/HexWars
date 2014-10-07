@@ -34,7 +34,7 @@ public class Game extends JPanel {
 		view.add(player);
 		view.add(board);
 		Controller control = new Controller();
-		control.setPlayer(player);
+		control.setPlayer(player, board);
 		this.addMouseListener(control);
 	}
 	
