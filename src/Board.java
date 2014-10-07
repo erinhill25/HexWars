@@ -152,7 +152,7 @@ public class Board extends Entity {
 			
 			tile.setHiglighted(false);
 			tile.setAccessible(false);
-			if(tile.getPoly().contains(x, y)) {
+			if(tile.getPoly().contains(x, y) && tile.isActive()) {
 				tile.setHiglighted(true);
 				clicked = tile;
 				

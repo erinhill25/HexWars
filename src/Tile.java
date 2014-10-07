@@ -7,9 +7,11 @@ public class Tile extends Entity {
 	protected Polygon poly;
 	protected Color color;
 	
+	protected final int BORDER = 8;
+	
 	protected int x, y;
 	
-	public boolean isActive = false, isHighlighted = false, isAccessible = false;
+	public boolean isActive = true, isHighlighted = false, isAccessible = false;
 	
 	
 	Tile(Polygon poly) {
@@ -59,13 +61,13 @@ public class Tile extends Entity {
 		
 		if(isHighlighted) {
 			g.setColor(Color.YELLOW);
-			g.setStroke(new BasicStroke(10));
+			g.setStroke(new BasicStroke(BORDER));
 			g.drawPolygon(poly);
 		}
 		
 		else if(isAccessible) {
 			g.setColor(Color.RED);
-			g.setStroke(new BasicStroke(10));
+			g.setStroke(new BasicStroke(BORDER));
 			g.drawPolygon(poly);
 		}
 		
