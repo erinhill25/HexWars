@@ -43,10 +43,6 @@ public class Game extends JPanel {
 		 
 		 	super.paint(g1);
 		    Graphics2D g = (Graphics2D) g1;
-		    
-		    g.setPaint(new GradientPaint(0, 0, new Color(150, 0, 0), WIDTH, HEIGHT,
-		        new Color(200, 200, 255)));
-		  //  g.fillRect(250, 0, WIDTH, HEIGHT);
 		    view.update(g);
 		    g.dispose();
 	 }
