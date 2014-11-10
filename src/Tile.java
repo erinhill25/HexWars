@@ -7,6 +7,8 @@ public class Tile extends Entity {
 	protected Polygon poly;
 	protected Color color;
 	
+	protected Unit unit; 
+	
 	protected final int BORDER = 8;
 	
 	protected int x, y;
@@ -29,6 +31,13 @@ public class Tile extends Entity {
 		this.x = x;
 	}
 	
+	public Unit getUnit() {
+		return Unit;
+	}
+	
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
 	
 	public boolean isActive() {
 		return isActive;

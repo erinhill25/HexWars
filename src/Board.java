@@ -164,5 +164,8 @@ public class Board extends Entity {
 		
 		
 	}
-
+	
+	public void update() {
+		
+	}
 }
