@@ -1,17 +1,24 @@
 import java.util.*;
 import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
 
 public class GameView extends JFrame implements Observer {
 	
+	public static final int WIDTH = 1200;
+	public static final int HEIGHT = 900;
 	
+	private static final long serialVersionUID = 1L;
+
 	GameController gameController;
 	
 	JLabel currentPlayerLabel = new JLabel("Player 1's Turn"); 
 	JLabel movesRemainingLabel = new JLabel("0 Moves Remaining"); 
 	JButton endTurnButton = new JButton("End Turn"); 
 	JPanel gamePanel = new GamePanel();
+	
+	JMenuItem newGame, viewLog, exit;
+	JTextArea notes = new JTextArea(5, 10);
 	
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
@@ -29,6 +36,25 @@ public class GameView extends JFrame implements Observer {
 		
 		gamePanel.addMouseListener(gameController);
 		endTurnButton.addActionListener(gameController);
+		
+	    JMenuBar bar = new JMenuBar();
+	    JMenu menu = new JMenu("File");
+	    menu.setMnemonic('f');
+	    bar.add(menu);
+	    
+	    newGame = menu.add(new JMenuItem("New Game", 'n'));
+	    newGame.addActionListener(gameController);
+	    viewLog = menu.add(new JMenuItem("View Log", 'v'));
+	    viewLog.addActionListener(gameController);
+	    exit = menu.add(new JMenuItem("Exit", 'e'));
+	    exit.addActionListener(gameController);
+	    
+	    setJMenuBar(bar);
+	    
+	    this.add(notes, BorderLayout.SOUTH);
+		
+	    pack();
+	    setSize(WIDTH,HEIGHT);
 	}
 	
 	public void addEntity(Entity e) {
@@ -43,14 +69,15 @@ public class GameView extends JFrame implements Observer {
 		if(argument.getName() == "currentPlayer") {
 			
 			//Update UI label
-			currentPlayerLabel.setText("Player " + ((int) argument.getValue() + 1) + "'s turn"); 
-			
+			int newPlayer = ((int) argument.getValue() + 1);
+			currentPlayerLabel.setText("Player " + newPlayer + "'s turn"); 
+			notes.append("\nPlayer " + newPlayer + "'s turn" );
 		}
 		
 		if(argument.getName() == "endTurnActive") {
 			
 			Boolean activate = (boolean) argument.getValue();
-		
+			
 			endTurnButton.setEnabled(activate); 
 
 			
@@ -69,12 +96,16 @@ public class GameView extends JFrame implements Observer {
 			
 			//add Winner text
 			
+			int winner = ((int) argument.getValue() + 1);
+			notes.append("\nPlayer " + winner + " wins!" );
 		}
 		
 		if(argument.getName() == "gameReset") {
 			
 			//Remove winner text
 			
+			
+			notes.append("\nNew game started");
 		}
 		
 

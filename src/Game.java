@@ -101,9 +101,8 @@ public class Game extends Observable {
 	 
 	 public void attemptTileMove(Tile tile) {
 		 
-		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || !gameActive || !tile.isAccessible) {
-			 return;
-		 }
+
+		 if(!gameActive) return;
 		 
 		 if(activeUnit == null) {
 			 
@@ -116,6 +115,11 @@ public class Game extends Observable {
 			 
 			 activeUnit = null; 
 			 board.unhighlightTiles(); 
+			 return;
+		 }
+		 
+		 
+		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || !tile.isAccessible) {
 			 return;
 		 }
 		 
@@ -160,7 +164,7 @@ public class Game extends Observable {
 			 
 			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
 			 this.setChanged();
-			 this.notifyObservers(new ObservableArgs("movesRemaining", 0));
+			 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
 			 
 			 /* Notify that a move has been made, and the player can end their turn */
 			 if(!hasMadeMove) {
@@ -183,6 +187,7 @@ public class Game extends Observable {
 				 
 			 }
 			 
+			 /* All of the player's units moves are 0 */
 			 if(!canMove) {
 				 
 				 this.changePlayer();
