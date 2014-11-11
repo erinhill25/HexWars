@@ -151,6 +151,9 @@ public class Game extends Observable {
 		
 				  }
 				  
+				  this.setChanged();
+				  this.notifyObservers(new ObservableArgs("battleWinner", winner.getPlayer()));
+				  
 				  //Determine if the player who won the battle won the game
 				  if(this.determineWinner(winner.getPlayer())) {
 					  return;

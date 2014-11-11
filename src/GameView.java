@@ -74,7 +74,7 @@ public class GameView extends JFrame implements Observer {
 			notes.append("\nPlayer " + newPlayer + "'s turn" );
 		}
 		
-		if(argument.getName() == "endTurnActive") {
+		else if(argument.getName() == "endTurnActive") {
 			
 			Boolean activate = (boolean) argument.getValue();
 			
@@ -83,7 +83,7 @@ public class GameView extends JFrame implements Observer {
 			
 		}
 		
-		if(argument.getName() == "movesRemaining") {
+		else if(argument.getName() == "movesRemaining") {
 			
 			int movesRemaining = (int) argument.getValue(); 
 			
@@ -91,8 +91,15 @@ public class GameView extends JFrame implements Observer {
 			
 		}
 		
+		else if(argument.getName() == "battleWinner") {
+			
+			int winner = ((int) argument.getValue() + 1);
+			notes.append("\nPlayer " + winner + " won the battle" );
+			
+		}
 		
-		if(argument.getName() == "gameWinner") {
+		
+		else if(argument.getName() == "gameWinner") {
 			
 			//add Winner text
 			
@@ -100,7 +107,7 @@ public class GameView extends JFrame implements Observer {
 			notes.append("\nPlayer " + winner + " wins!" );
 		}
 		
-		if(argument.getName() == "gameReset") {
+		else if(argument.getName() == "gameReset") {
 			
 			//Remove winner text
 			
