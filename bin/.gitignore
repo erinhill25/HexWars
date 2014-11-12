@@ -6,3 +6,6 @@
 /GameView.class
 /GameView$GamePanel.class
 /GameActionController.class
+/ColorScheme.class
+/CsvBoardFactory.class
+/TileStatus.class
