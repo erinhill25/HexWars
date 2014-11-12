@@ -2,7 +2,7 @@ import java.awt.*;
 
 /**
  * @author Spencer Davis
- * This is the Board class. This class is bored. It also hunts boar. With a drill. Which bores. Or something. Maybe not.
+ * This is the Board class.
  */
 public class Board extends Entity {
     protected Tile[]      tileList;
