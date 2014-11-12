@@ -6,41 +6,41 @@ import java.awt.*;
  * @author Spencer Davis
  * This class's purpose is to create a Board object with hexagonal tiles, from a csv file, ignoring whitespace.
  * Example:
- * 		V0V,A1P,A2V
- * 		A2P,A0K,N1V
+ *      V0V,A1P,A2V
+ *      A2P,A0K,N1V
  * Each item between commas represents a single Tile.
  * Each Tile specifier is made up of a:
- * 		activity specifier:
- * 			'V' means the Tile doesn't exist: Void
- * 			'A' means it's a normal Tile: Active
- * 			'N' means the Tile is untraversable: Not Active
- * 		base color:
- * 			a ColorScheme index
- * 		unit specifier
- * 			'V' means there's no Unit on the Tile
- * 			'P' means there's a basic Soldier of Player 0 on the Tile
- * 			'S' means there's a basic Soldier of Player 1 on the Tile
- * 			'K' means there's a King of Player 0 on the Tile
- * 			'Q' means there's a King of Player 1 on the Tile
+ *      activity specifier:
+ *          'V' means the Tile doesn't exist: Void
+ *          'A' means it's a normal Tile: Active
+ *          'N' means the Tile is untraversable: Not Active
+ *      base color:
+ *          a ColorScheme index
+ *      unit specifier
+ *          'V' means there's no Unit on the Tile
+ *          'P' means there's a basic Soldier of Player 0 on the Tile
+ *          'S' means there's a basic Soldier of Player 1 on the Tile
+ *          'K' means there's a King of Player 0 on the Tile
+ *          'Q' means there's a King of Player 1 on the Tile
  */
 public class CsvBoardFactory implements BoardFactory{
-    int inRad; //hexagon inscribed radius
+    int    inRad;    //hexagon inscribed radius
     double halfSide; //half of hexagon side length
-    double exRad; //hexagon excribed radius
+    double exRad;    //hexagon excribed radius
     
     /**
-	 * Builds the Board object and returns it.
-	 * @param units a UnitHandler to place Units
-	 * @param size the inscribed radius of a Tile
-	 * @param filePath see class description
-	 * @return the Board constructed
-	 * @throws IOException if filePath is invalid, or the file scanner runs into some other sort of error
-	 */
+     * Builds the Board object and returns it.
+     * @param units a UnitHandler to place Units
+     * @param size the inscribed radius of a Tile
+     * @param filePath see class description
+     * @return the Board constructed
+     * @throws IOException if filePath is invalid, or the file scanner runs into some other sort of error
+     */
     public Board constructBoard(UnitHandler units, int size, String filePath) throws IOException{
         ColorScheme colors = createColorScheme();
-        inRad = size;
+        inRad    = size;
         halfSide = inRad*0.57735; // inRad*tan(30)
-        exRad = inRad*1.15470; // radius = inRad/cos(30)
+        exRad    = inRad*1.15470; // radius = inRad/cos(30)
 
         String[][] initMatrix = readFile(filePath);
         Tile[][] tileMatrix = new Tile[initMatrix.length][initMatrix[0].length];
@@ -155,7 +155,7 @@ public class CsvBoardFactory implements BoardFactory{
         double centerX, centerY;
         //Horizontal Position
         if(xIndex%2 == 1)
-            centerX = xIndex*2*inRad + 2*inRad; //index * inscribed radius + offset
+            centerX  = xIndex*2*inRad + 2*inRad; //index * inscribed radius + offset
         else centerX = xIndex*2*inRad + 3*inRad; //index * inscribed radius + more offset
 
         //Vertical Position
@@ -186,10 +186,10 @@ public class CsvBoardFactory implements BoardFactory{
      * @return the ColorScheme
      */
     private ColorScheme createColorScheme(){
-        Color[] bases = {new Color(153, 240, 66), new Color(102, 189, 15), new Color(77, 142, 11)};
+        Color[] bases          = {new Color(153, 240, 66), new Color(102, 189, 15), new Color(77, 142, 11)};
         Color translucentBlack = new Color(0x000000E6, true);
-        Color translucentCyan = new Color(0x00FFFF40, true);
-        Color translucentBlue = new Color(0x0000FF40, true);
+        Color translucentCyan  = new Color(0x00FFFF40, true);
+        Color translucentBlue  = new Color(0x0000FF40, true);
         return new ColorScheme(bases, translucentBlack, translucentBlue, 
                 Color.RED, translucentCyan, Color.YELLOW);
     }

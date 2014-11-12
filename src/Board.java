@@ -5,40 +5,33 @@ import java.awt.*;
  * This is the Board class. This class is bored. It also hunts boar. With a drill. Which bores. Or something. Maybe not.
  */
 public class Board extends Entity {
-	protected Tile[] tileList;
-	protected UnitHandler units;
-    protected Tile lastSelected;
-    protected Tile[] lastHighlighted;
-	
+    protected Tile[]      tileList;
+    protected UnitHandler units;
+    protected Tile        lastSelected;
+    protected Tile[]      lastHighlighted;
+    
     /**
      * Constructor.
      * @param tiles an array of Tiles
      * @param units a UnitHandler
      */
-	protected Board(Tile[] tiles, UnitHandler units){
-        tileList = tiles;
-        this.units = units;
+    protected Board(Tile[] tiles, UnitHandler units){
+        tileList     = tiles;
+        this.units   = units;
         lastSelected = null;
     }
     
-	/**
-	 * Clears current highlights, then finds a Tile, if there is one, at the graphical location specified.
-	 * If there is no active Tile at the location specified, this method returns null. Otherwise, it highlights
-	 * the Tile and its neighbors accordingly and returns the Tile at the location specified.
-	 * @param x x coordinate
-	 * @param y y coordinate
-	 * @return the Tile at the coordinates specified.
-	 */
+    /**
+     * Clears current highlights, then finds a Tile, if there is one, at the graphical location specified.
+     * If there is no active Tile at the location specified, this method returns null. Otherwise, it highlights
+     * the Tile and its neighbors accordingly and returns the Tile at the location specified.
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return the Tile at the coordinates specified.
+     */
     public Tile selectTile(int x, int y){
-        int i;
-        if(lastSelected != null){
-            lastSelected.setHighlight(TileStatus.NONE);
-            for(i = 0; i < lastHighlighted.length; i++){
-                if(lastHighlighted[i] != null)
-                    lastHighlighted[i].setHighlight(TileStatus.NONE);
-            }
-        }
-        for(i = 0; i < tileList.length; i++){
+        clearHighlights();
+        for(int i = 0; i < tileList.length; i++){
             if(tileList[i].contains(x,y)){
                 lastSelected = tileList[i];
                 if(lastSelected.isThisThingOn()){
@@ -50,15 +43,51 @@ public class Board extends Entity {
                     }
                     return lastSelected;
                 }else{
-                    lastSelected = null;
+                    lastSelected    = null;
                     lastHighlighted = null;
                     return null;
                 }
             }
         }
-        lastSelected = null;
+        lastSelected    = null;
         lastHighlighted = null;
         return null;
+    }
+    
+    /**
+     * Clears highlights, then selects the Tile specified, in terms of highlights,
+     * unless the Tile specified is inactive.
+     * @param aTile the Tile specified
+     * @return whether or not the highlights actually took place
+     */
+    public boolean selectTile(Tile aTile){
+        clearHighlights();
+        if(lastSelected.isThisThingOn()){
+            lastSelected.setHighlight(TileStatus.SELECTED);
+            lastHighlighted = lastSelected.getAdjs();
+            for(int i = 0; i < lastHighlighted.length; i++){
+                if((lastHighlighted[i] != null) && (lastHighlighted[i].isThisThingOn()))
+                    lastHighlighted[i].setHighlight(TileStatus.REACHABLE);
+            }
+            return true;
+        }else return false;
+    }
+    
+    /**
+     * Clears the current highlights of Tiles.
+     * @return a boolean that tells whether or not there were any highlights to clear.
+     */
+    public boolean clearHighlights(){
+        if(lastSelected != null){
+            lastSelected.setHighlight(TileStatus.NONE);
+            for(int i = 0; i < lastHighlighted.length; i++){
+                if(lastHighlighted[i] != null)
+                    lastHighlighted[i].setHighlight(TileStatus.NONE);
+            }
+            lastSelected    = null;
+            lastHighlighted = null;
+            return true;
+        }else return false;
     }
     
     /**
