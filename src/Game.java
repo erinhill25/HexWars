@@ -129,7 +129,7 @@ public class Game extends Observable {
 		 }
 		 
 		 
-		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || !tile.isAccessible) {
+		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
 			 return;
 		 }
 		 
