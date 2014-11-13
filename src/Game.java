@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.*;
+
 
 public class Game extends Observable {
 	
@@ -13,13 +15,19 @@ public class Game extends Observable {
 	protected BoardFactory boardFactory;
 	protected UnitHandler unitHandler = new UnitHandler();
 	
+	String boardCSV = "resources/DefaultBoard.csv";
+	
 	boolean hasMadeMove = false, gameActive = true;
 
 	public Game() {
 
-		boardFactory = new BoardFactory(unitHandler);
+		boardFactory = new CsvBoardFactory();
 		
-		board = boardFactory.constructBoard();
+		try {
+			board = boardFactory.constructBoard(unitHandler, 40, boardCSV);
+		} catch (IOException e) {
+			System.out.println("Loading of board resource failed");
+		}
 
 	}
 	
@@ -86,7 +94,12 @@ public class Game extends Observable {
 		gameActive = true;
 		activeUnit = null;
 		
-		board = boardFactory.constructBoard();
+		try {
+			board = boardFactory.constructBoard(unitHandler, 40, boardCSV);
+		} catch (IOException e) {
+			System.out.println("Loading of board resource failed");
+			return;
+		}
 		this.setChanged();
 		this.notifyObservers(new ObservableArgs("gameReset", true)); 
 	 }
@@ -106,19 +119,17 @@ public class Game extends Observable {
 		 if(activeUnit == null) {
 			 
 			 activeUnit = tile.getUnit();
-			 board.highlightTiles(tile);
 			 return;
 			 
 		 } 
 		 else if(tile.getUnit() == activeUnit) {
 			 
 			 activeUnit = null; 
-			 board.unhighlightTiles(); 
 			 return;
 		 }
 		 
 		 
-		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || !tile.isAccessible) {
+		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
 			 return;
 		 }
 		 
@@ -139,7 +150,7 @@ public class Game extends Observable {
 					  
 				   	  unitHandler.removeUnit(otherUnit);
 					  
-					   playerUnits = unitHandler.getPlayerUnits(otherUnit.getPlayer());
+					  playerUnits = unitHandler.getPlayerUnits(otherUnit.getPlayer());
 					
 					  
 				  } else {
@@ -174,9 +185,7 @@ public class Game extends Observable {
 				 this.setChanged();
 				 this.notifyObservers(new ObservableArgs("endTurnActive", true));
 			 }
-			 
-			 
-			 board.highlightTiles(tile);
+			
 			 
 			 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(currentPlayer);
 			 boolean canMove = false;

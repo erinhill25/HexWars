@@ -6,11 +6,11 @@ import java.awt.*;
  */
 class ColorScheme {
     protected Color[] bases;
-    protected Color inactive;
-    protected Color selected;
-    protected Color reachable;
-    protected Color selectBorder;
-    protected Color reachBorder;
+    protected Color   inactive;
+    protected Color   selected;
+    protected Color   reachable;
+    protected Color   selectBorder;
+    protected Color   reachBorder;
     
     /**
      * Basic constructor. Must fill all values.
@@ -22,12 +22,12 @@ class ColorScheme {
      * @param reachBorder the border color of a reachable Tile
      */
     ColorScheme(Color[] baseColors, Color inactive, Color selected, Color selectBorder, Color reachable, Color reachBorder){
-        bases = baseColors;
-        this.inactive = inactive;
-        this.selected = selected;
+        bases             = baseColors;
+        this.inactive     = inactive;
+        this.selected     = selected;
         this.selectBorder = selectBorder;
-        this.reachable = reachable;
-        this.reachBorder = reachBorder;
+        this.reachable    = reachable;
+        this.reachBorder  = reachBorder;
     }
     
     /**
@@ -40,11 +40,11 @@ class ColorScheme {
      * @param reachBorder the border color of a reachable Tile
      */
     void changeColors(Color[] baseColors, Color inactive, Color selected, Color selectBorder, Color reachable, Color reachBorder){
-        bases = baseColors;
-        this.inactive = inactive;
-        this.selected = selected;
+        bases             = baseColors;
+        this.inactive     = inactive;
+        this.selected     = selected;
         this.selectBorder = selectBorder;
-        this.reachable = reachable;
-        this.reachBorder = reachBorder;
+        this.reachable    = reachable;
+        this.reachBorder  = reachBorder;
     }
 }

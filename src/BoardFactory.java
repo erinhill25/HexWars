@@ -6,14 +6,14 @@ import java.io.IOException;
  * and potentially resize the graphics or save the current Board state to a file.
  */
 public interface BoardFactory {
-	/**
-	 * Builds a Board object and returns it.
-	 * @param units a UnitHandler to place Units
-	 * @param size a specifier for graphical size of the Board
-	 * @param filePath a path to a file specifying the Board layout
-	 * @return the Board constructed
-	 * @throws IOException if filePath is invalid, or the file scanner runs into some other sort of error
-	 */
+    /**
+     * Builds a Board object and returns it.
+     * @param units a UnitHandler to place Units
+     * @param size a specifier for graphical size of the Board
+     * @param filePath a path to a file specifying the Board layout
+     * @return the Board constructed
+     * @throws IOException if filePath is invalid, or the file scanner runs into some other sort of error
+     */
     public Board constructBoard(UnitHandler units, int size, String filePath) throws IOException;
     /**
      * Resizes the graphics of the Board (optional operation).

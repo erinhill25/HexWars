@@ -1,6 +1,5 @@
 import java.awt.*;
-	
-	
+
 
 public class Player extends Entity {
 
@@ -23,20 +22,4 @@ public class Player extends Entity {
 		// g.fillRect(x, y, 200, 200);
 		
 	}
-	
-	public Unit[] getUnits(Player p) {
-		
-		
-		
-		return null;
-		
-	}
-
-	@Override
-	void update() {
-		
-		
-	}
-	
-	
 }

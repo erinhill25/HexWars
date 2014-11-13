@@ -24,7 +24,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 	public void mouseClicked(MouseEvent e) {
 
 		
-      	Tile clickedTile = game.getBoard().getTileClicked(e.getX(), e.getY());
+      	Tile clickedTile = game.getBoard().selectTile(e.getX(), e.getY());
 		
 		if(clickedTile != null) {
 			
