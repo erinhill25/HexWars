@@ -27,6 +27,7 @@ public class CsvBoardFactory implements BoardFactory{
     int    inRad;    //hexagon inscribed radius
     double halfSide; //half of hexagon side length
     double exRad;    //hexagon excribed radius
+    double centerX, centerY; //hexagon center
     
     /**
      * Builds the Board object and returns it.
@@ -51,23 +52,23 @@ public class CsvBoardFactory implements BoardFactory{
                 tileInit = initMatrix[i][j];
                 if(tileInit.charAt(0) != 'V'){
                     tileMatrix[i][j] = 
-                            new Tile(createHex(j,i),6,colors,tileInit.charAt(1));
+                            new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,tileInit.charAt(1));
                     if(tileInit.charAt(0) == 'A'){
                         switch(tileInit.charAt(2)){
                             case 'V':
                                 unit = null;
                                 break;
                             case 'P':
-                                unit = new Soldier(0);
+                                unit = new Soldier(0,centerX,centerY);
                                 break;
                             case 'K':
-                                unit = new King(0);
+                                unit = new King(0,centerX,centerY);
                                 break;
                             case 'S':
-                                unit = new Soldier(1);
+                                unit = new Soldier(1,centerX,centerY);
                                 break;
                             case 'Q':
-                                unit = new King(1);
+                                unit = new King(1,centerX,centerY);
                                 break;
                             default:
                                 unit = null;
@@ -152,7 +153,6 @@ public class CsvBoardFactory implements BoardFactory{
      * @return the Polygon.
      */
     private Polygon createHex(int xIndex, int yIndex){
-        double centerX, centerY;
         //Horizontal Position
         if(xIndex%2 == 1)
             centerX  = xIndex*2*inRad + 2*inRad; //index * inscribed radius + offset

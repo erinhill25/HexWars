@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -9,6 +8,7 @@ public class Tile extends Entity {
     protected static int     idCounter = 0;
     protected final  int     id; //useful for debugging
     protected final  Polygon polyGon;
+    protected final  int     x, y;
     protected ColorScheme colors;
     protected int         colorIdx;
     protected Unit        tacUnit;
@@ -19,16 +19,20 @@ public class Tile extends Entity {
     /**
      * Constructor for the Tile.
      * @param shape the Polygon shape of the tile
+     * @param centerX The center of the Polygon, x component
+     * @param centerY The center of the Polygon, y component
      * @param numSides the number of sides the Polygon has
      * @param colors the ColorScheme to specify color
      * @param baseColorIndex the index into the ColorScheme's base colors
      */
-    protected Tile(Polygon shape, int numSides, ColorScheme colors, int baseColorIndex){
+    protected Tile(Polygon shape, int centerX, int centerY, int numSides, ColorScheme colors, int baseColorIndex){
         polyGon     = shape;
         adjTiles    = new Tile[numSides];
         colorIdx    = baseColorIndex;
         this.colors = colors;
         isActive    = true;
+        x = centerX;
+        y = centerY;
         highLight   = TileStatus.NONE;
         id          = idCounter;
         idCounter++;
