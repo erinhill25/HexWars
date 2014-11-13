@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Game extends Observable {
 	
 	protected long lastTime;

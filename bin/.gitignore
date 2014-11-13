@@ -1,8 +1,2 @@
-/BoardFactory.class
-/Unit.class
-/UnitHandler.class
-/ObservableArgs.class
-/GameController.class
-/GameView.class
-/GameView$GamePanel.class
-/GameActionController.class
+/Soldier.class
+/King.class
