@@ -5,10 +5,9 @@ import java.awt.*;
  * A Tile class as the base entity of a Board.
  */
 public class Tile extends Entity {
-    protected static int     idCounter = 0;
-    protected final  int     id; //useful for debugging
-    protected final  Polygon polyGon;
-    protected final  int     x, y;
+    protected static int  idCounter = 0;
+    protected final  int  id; //useful for debugging
+    protected Polygon     polyGon;
     protected ColorScheme colors;
     protected int         colorIdx;
     protected Unit        tacUnit;
