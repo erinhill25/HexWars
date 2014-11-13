@@ -1,18 +1,10 @@
 
 public class Soldier extends Unit {
 
-	 
-	
-	public Soldier(Player owner) {
-		super(owner);
-		possibleMoves = 1;
+	public Soldier(int owner, Tile tile) {
+		super(owner, tile);
 		
-	}
-
-	@Override
-	void update() {
-		// TODO Auto-generated method stub
-
+		possibleMoves = 1;
 	}
 
 }

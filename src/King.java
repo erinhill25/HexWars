@@ -1,15 +1,12 @@
 
 public class King extends Unit {
 	
-	public King(Player owner) {
-		super(owner);
+	public King(int owner, Tile tile) {
+		super(owner, tile);
 		
+		possibleMoves = 1;
 	}
-
-	@Override
-	void update() {
-		
-
-	}
+	
+	
 
 }

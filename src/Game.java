@@ -134,30 +134,32 @@ public class Game extends Observable {
 		 }
 		 
 		 Unit otherUnit = tile.getUnit();
-		 if(otherUnit.getPlayer() != currentPlayer) {
+		 if(otherUnit.getPlayer() != currentPlayer) 
+		 {
 			 
 			 activeUnit.setDestination(tile);
 			 
 			 /* Battle engaged */
-			 if(otherUnit != null) {
-				
-				  
+			 if(otherUnit != null) 
+			 {
+					  
 				  Unit winner = this.engageBattle(activeUnit, otherUnit);
 				 
-				  if(winner == activeUnit) {
+				  if(winner == activeUnit) 
+				  {
 					  
 					  tile.setUnit(activeUnit);
 					  
 				   	  unitHandler.removeUnit(otherUnit);
 					  
-					  playerUnits = unitHandler.getPlayerUnits(otherUnit.getPlayer());
+					  //playerUnits = unitHandler.getPlayerUnits(otherUnit.getPlayer());
 					
 					  
-				  } else {
-					  
-					  
+				  } 
+				  else 
+				  {  
 					  unitHandler.removeUnit(activeUnit); 
-					  playerUnits = unitHandler.getPlayerUnits(currentPlayer);
+					 //playerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		
 				  }
 				  
@@ -166,13 +168,15 @@ public class Game extends Observable {
 				  
 				  //Determine if the player who won the battle won the game
 				  if(this.determineWinner(winner.getPlayer())) {
-					  return;
+					 return;
 				  }
 				  
-			 } else {
-				 
+			 }
+			 else 
+			 {
+					 
 				 tile.setUnit(activeUnit);
-				 
+					 
 			 }
 			 
 			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
@@ -212,15 +216,16 @@ public class Game extends Observable {
 	 
 	 public boolean determineWinner(int winner) {
 		 
-		 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(!winner.getPlayer());
+		 int loser = winner ^ 1;
+		 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(loser);
 		  
 		  /* Winner time! */
 		  if(playerUnits.size() == 0) {
 			  
 			  this.gameActive = false;
-			  this.winner = winner.getPlayer();
+			  this.winner = winner;
 			  this.setChanged();
-			  this.notifyObservers(new ObservableArgs("gameWinner", winner.getPlayer()));
+			  this.notifyObservers(new ObservableArgs("gameWinner", winner));
 			  
 			  return true;
 			  
