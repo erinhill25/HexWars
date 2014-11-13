@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Iterator;
 
 /**
  * @author Spencer Davis
@@ -122,7 +123,17 @@ public class Board extends Entity {
     }
     
     /**
-     * Does nothing since the Board is not animated.
+     * Calls update on all the units;
      */
-    public void update(){}
+    public void update(){
+        Iterator<Unit> unitIterator;
+        Unit theUnit;
+        for(int i = 0; i < 2; i++){
+            unitIterator = units.getPlayerUnits(i).iterator();
+            do{
+                theUnit = unitIterator.next();
+                theUnit.update();
+            }while(unitIterator.hasNext());
+        }
+    }
 }

@@ -137,6 +137,22 @@ public class Tile extends Entity {
     public void update(){}
     
     /**
+     * Returns the x location of the Tile's Polygon's center.
+     * @return the x location of the Tile's Polygon's center.
+     */
+    public int getX(){
+        return x;
+    }
+    
+    /**
+     * Returns the y location of the Tile's Polygon's center.
+     * @return the y location of the Tile's Polygon's center.
+     */
+    public int getY(){
+        return y;
+    }
+    
+    /**
      * Renders the Tile and any Unit on it.
      */
     public void render(Graphics2D g2D){
