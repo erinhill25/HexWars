@@ -22,10 +22,8 @@ public class GameView extends JFrame implements Observer {
 	
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
-	public GameView(GameController gameController) {
-		
-		this.gameController = gameController;
-		
+	public GameView() {
+				
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		currentPlayerLabel.setPreferredSize(new Dimension(300, 100));
 		this.add(currentPlayerLabel, BorderLayout.CENTER);
@@ -55,6 +53,10 @@ public class GameView extends JFrame implements Observer {
 		
 	    pack();
 	    setSize(WIDTH,HEIGHT);
+	}
+	
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
 	}
 	
 	public void addEntity(Entity e) {

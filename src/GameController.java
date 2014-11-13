@@ -14,6 +14,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
 		this.game = game;
 		this.gameView = gameView;
+		gameView.setGameController(this);
 		
 		game.addObserver(gameView);
 		
