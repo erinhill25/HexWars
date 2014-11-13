@@ -134,7 +134,7 @@ public class Game extends Observable {
 		 }
 		 
 		 Unit otherUnit = tile.getUnit();
-		 if(otherUnit.getPlayer() != currentPlayer) 
+		 if(otherUnit == null || otherUnit.getPlayer() != currentPlayer) 
 		 {
 			 
 			 activeUnit.setDestination(tile);
@@ -259,15 +259,23 @@ public class Game extends Observable {
 		 
 		 while(true) {
 			 
-			 long now = System.nanoTime();
-			 long diff = now - lastTime;
+			 //long now = System.nanoTime();
+			 //long diff = now - lastTime;
 	
-			 diff /= 1000000; //Nano to milliseconds
+			 //diff /= 1000000; //Nano to milliseconds
 			 
-			 if(diff > (1000 / 60)) {
+			// if(diff > (1000 / 60)) {
 				 update();
-				 lastTime = now;
-			 }
+				// lastTime = now;
+			// }
+			 
+			 
+			 try {
+				Thread.sleep(1000/60);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 }
 	 }
 	
