@@ -1,6 +1,5 @@
 import java.awt.*;
 
-
 public class Unit extends Entity {
 
 	int owner;
