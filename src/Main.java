@@ -12,38 +12,6 @@ public class Main {
     public static final int AI_PLAYER = 1;
 
 	public static void main(String[] args) {
-		/*
-		Game game = new Game();
-		JFrame f = new JFrame();
-	    f.addWindowListener(new WindowAdapter() {
-	      public void windowClosing(WindowEvent e) {
-	        System.exit(0);
-	      }
-	    });
-	    f.setContentPane(game);
-	    f.setVisible(true);
-	    
-	    
-	    JMenuBar bar = new JMenuBar();
-	    JMenu menu = new JMenu("File");
-	    menu.setMnemonic('f');
-	    bar.add(menu);
-	    
-	    JMenuItem newgame = menu.add(new JMenuItem("New Game", 'n'));
-	    JMenuItem viewlog = menu.add(new JMenuItem("View Log", 'v'));
-	    JMenuItem exit = menu.add(new JMenuItem("Exit", 'e'));
-	    
-	    
-	    
-	    f.setJMenuBar(bar);
-	    
-	    f.pack();
-	    f.setSize(1500,1080);
-	    
-	    
-	    
-	    game.run();
-        /**/
 		
 		new Main(); 
 	}
@@ -74,7 +42,7 @@ public class Main {
 	    
 	    ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(3);
 	    
-	    executor.scheduleAtFixedRate(game, 0L, 20L, TimeUnit.MILLISECONDS);
+	    executor.scheduleAtFixedRate(game, 0L, (long) 16.6, TimeUnit.MILLISECONDS);
 	    
 	   
 	}
