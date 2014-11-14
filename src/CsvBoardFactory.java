@@ -40,8 +40,8 @@ public class CsvBoardFactory implements BoardFactory{
     public Board constructBoard(UnitHandler units, int size, String filePath) throws IOException{
         ColorScheme colors = createColorScheme();
         inRad    = size;
-        halfSide = inRad*1.15470; // inRad*tan(30)
-        exRad    = inRad*0.57735; // radius = inRad/cos(30)
+        halfSide = inRad*1.15470; // inRad/cos(30)
+        exRad    = inRad*0.57735; // inRad*tan(30)
        
         String[][] initMatrix = readFile(filePath);
         Tile[][] tileMatrix = new Tile[initMatrix.length][initMatrix[0].length];
@@ -63,16 +63,16 @@ public class CsvBoardFactory implements BoardFactory{
                                 unit = null;
                                 break;
                             case 'P':
-                                unit = new Soldier(0,tileMatrix[i][j]);
+                                unit = new Soldier(0,tileMatrix[i][j], size*2/3);
                                 break;
                             case 'K':
-                                unit = new King(0,tileMatrix[i][j]);
+                                unit = new King(0,tileMatrix[i][j], size*2/3);
                                 break;
                             case 'S':
-                                unit = new Soldier(1,tileMatrix[i][j]);
+                                unit = new Soldier(1,tileMatrix[i][j], size*2/3);
                                 break;
                             case 'Q':
-                                unit = new King(1,tileMatrix[i][j]);
+                                unit = new King(1,tileMatrix[i][j], size*2/3);
                                 break;
                             default:
                                 unit = null;
@@ -125,8 +125,8 @@ public class CsvBoardFactory implements BoardFactory{
      * @return the Tile at the indexes specified, or null if they are out of bounds.
      */
     private Tile getWithBounds(Tile[][] tileMatrix, int index1, int index2){
-        if(index1 > tileMatrix.length-1 || index1 < 0 || 
-                index2 < 0 || index2 > tileMatrix[0].length-1){
+        if(index1 >= tileMatrix.length || index1 < 0 || 
+                index2 < 0 || index2 >= tileMatrix[0].length){
             return null;
         }
         return tileMatrix[index1][index2];
@@ -165,15 +165,9 @@ public class CsvBoardFactory implements BoardFactory{
         //Horizontal Position
         if(yIndex%2 == 1) {
         	centerX = xIndex*2*inRad + 3*inRad;
-        	centerX += inRad;
-        } 
-        else { 
-        	
-        	centerX = xIndex*2*inRad + 3*inRad; //index * inscribed radius + more offset
-        
+        }else { 
+        	centerX = xIndex*2*inRad + 4*inRad; //index * inscribed radius + more offset
         }
-
-
         
         int[] xPoints = new int[6];
         int[] yPoints = new int[6];
@@ -201,9 +195,9 @@ public class CsvBoardFactory implements BoardFactory{
      */
     private ColorScheme createColorScheme(){
         Color[] bases          = {new Color(153, 240, 66), new Color(102, 189, 15), new Color(77, 142, 11)};
-        Color translucentBlack = new Color(0,0,0);
-        Color translucentCyan  = new Color(0x00FFFF40, true);
-        Color translucentBlue  = new Color(0x0000FF40, true);
+        Color translucentBlack = new Color(0xE8000000, true);
+        Color translucentCyan  = new Color(0x6000FFFF, true);
+        Color translucentBlue  = new Color(0x600000FF, true);
         return new ColorScheme(bases, translucentBlack, translucentBlue, 
                 Color.RED, translucentCyan, Color.YELLOW);
     }

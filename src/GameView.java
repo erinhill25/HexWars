@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 public class GameView extends JFrame implements Observer {
 	
-	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 900;
+	public static final int WIDTH = 900;
+	public static final int HEIGHT = 650;
 	
 	private static final long serialVersionUID = 1L;
 

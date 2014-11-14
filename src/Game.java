@@ -24,7 +24,7 @@ public class Game extends Observable implements Runnable {
 		boardFactory = new CsvBoardFactory();
 		
 		try {
-			board = boardFactory.constructBoard(unitHandler, 40, boardCSV);
+			board = boardFactory.constructBoard(unitHandler, 25, boardCSV);
 		} catch (IOException e) {
 			System.out.println("Loading of board resource failed");
 		}

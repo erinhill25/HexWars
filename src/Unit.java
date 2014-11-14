@@ -6,11 +6,13 @@ public class Unit extends Entity {
 	int owner;
 	int movesRemaining, possibleMoves;
 	int destinationX = -1, destinationY = -1;
+	int rad;
 	
-	public Unit(int owner, Tile tile) {
+	public Unit(int owner, Tile tile, int radius) {
 		
 		x = tile.getX();
 		y = tile.getY();
+		this.rad = radius;
 		
 		if(owner == 1 || owner == 0) 
 			this.owner = owner;
@@ -24,7 +26,7 @@ public class Unit extends Entity {
 	
 		g.setPaint(new GradientPaint(0, 0, new Color(6, 28, 100), 20, 20,
 	       new Color(5, 7, 100, 27), true));
-		g.fillOval(x-25, y-25, 50, 50);
+		g.fillOval(x-rad, y-rad, rad*2, rad*2);
 	}
 
 	void update() {
