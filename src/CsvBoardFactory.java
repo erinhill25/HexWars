@@ -40,8 +40,11 @@ public class CsvBoardFactory implements BoardFactory{
     public Board constructBoard(UnitHandler units, int size, String filePath) throws IOException{
         ColorScheme colors = createColorScheme();
         inRad    = size;
-        halfSide = inRad*0.57735; // inRad*tan(30)
-        exRad    = inRad*1.15470; // radius = inRad/cos(30)
+        halfSide = inRad*1.15470; // inRad*tan(30)
+        exRad    = inRad*0.57735; // radius = inRad/cos(30)
+        
+        
+        
 
         String[][] initMatrix = readFile(filePath);
         Tile[][] tileMatrix = new Tile[initMatrix.length][initMatrix[0].length];
@@ -51,8 +54,12 @@ public class CsvBoardFactory implements BoardFactory{
             for(int j = 0; j < initMatrix[i].length; j++){
                 tileInit = initMatrix[i][j];
                 if(tileInit.charAt(0) != 'V'){
+                	
+                	
+                	int colorIdx = Integer.parseInt(tileInit.substring(1, 2)); 
+                	System.out.println();
                     tileMatrix[i][j] = 
-                            new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,tileInit.charAt(1));
+                            new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,colorIdx);
                     if(tileInit.charAt(0) == 'A'){
                         switch(tileInit.charAt(2)){
                             case 'V':
@@ -120,8 +127,8 @@ public class CsvBoardFactory implements BoardFactory{
      * @return the Tile at the indexes specified, or null if they are out of bounds.
      */
     private Tile getWithBounds(Tile[][] tileMatrix, int index1, int index2){
-        if(index1 > tileMatrix.length || index1 < 0 || 
-                index2 < 0 || index2 > tileMatrix[0].length){
+        if(index1 > tileMatrix.length-1 || index1 < 0 || 
+                index2 < 0 || index2 > tileMatrix[0].length-1){
             return null;
         }
         return tileMatrix[index1][index2];
@@ -153,13 +160,22 @@ public class CsvBoardFactory implements BoardFactory{
      * @return the Polygon.
      */
     private Polygon createHex(int xIndex, int yIndex){
-        //Horizontal Position
-        if(xIndex%2 == 1)
-            centerX  = xIndex*2*inRad + 2*inRad; //index * inscribed radius + offset
-        else centerX = xIndex*2*inRad + 3*inRad; //index * inscribed radius + more offset
-
+    	
         //Vertical Position
         centerY = yIndex*(exRad + halfSide) + inRad + exRad;
+    	
+        //Horizontal Position
+        if(yIndex%2 == 1) {
+        	centerX = xIndex*2*inRad + 3*inRad;
+        	centerX += inRad;
+        } 
+        else { 
+        	
+        	centerX = xIndex*2*inRad + 3*inRad; //index * inscribed radius + more offset
+        
+        }
+
+
         
         int[] xPoints = new int[6];
         int[] yPoints = new int[6];
@@ -187,7 +203,7 @@ public class CsvBoardFactory implements BoardFactory{
      */
     private ColorScheme createColorScheme(){
         Color[] bases          = {new Color(153, 240, 66), new Color(102, 189, 15), new Color(77, 142, 11)};
-        Color translucentBlack = new Color(0x000000E6, true);
+        Color translucentBlack = new Color(0,0,0);
         Color translucentCyan  = new Color(0x00FFFF40, true);
         Color translucentBlue  = new Color(0x0000FF40, true);
         return new ColorScheme(bases, translucentBlack, translucentBlue, 

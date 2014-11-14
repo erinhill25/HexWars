@@ -3,6 +3,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class GameView extends JFrame implements Observer {
 	
 	public static final int WIDTH = 1200;
@@ -24,15 +27,18 @@ public class GameView extends JFrame implements Observer {
 	
 	public GameView() {
 				
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		currentPlayerLabel.setPreferredSize(new Dimension(300, 100));
 		this.add(currentPlayerLabel, BorderLayout.CENTER);
 		this.add(movesRemainingLabel, BorderLayout.CENTER);
-		this.add(gamePanel, BorderLayout.NORTH);
+		this.add(gamePanel, BorderLayout.CENTER);
 		
+		
+	
 		this.setVisible(true);
 		
-		gamePanel.addMouseListener(gameController);
+	
 		endTurnButton.addActionListener(gameController);
 		
 	    JMenuBar bar = new JMenuBar();
@@ -52,11 +58,14 @@ public class GameView extends JFrame implements Observer {
 	    this.add(notes, BorderLayout.SOUTH);
 		
 	    pack();
+		
 	    setSize(WIDTH,HEIGHT);
 	}
 	
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
+
+		gamePanel.addMouseListener(gameController);
 	}
 	
 	public void addEntity(Entity e) {
@@ -132,12 +141,24 @@ public class GameView extends JFrame implements Observer {
 		
 	}
 	
+	public void repaint() {
+		
+		super.repaint();
+		gamePanel.repaint();
+		
+	}
+	
 
 	
 	
 	private class GamePanel extends JPanel {
 
 		private static final long serialVersionUID = 1L;
+		
+		public GamePanel(){ 
+			
+	
+		}
 
 		public void paint(Graphics g1) {
 			 

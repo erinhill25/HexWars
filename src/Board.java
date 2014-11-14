@@ -36,6 +36,7 @@ public class Board extends Entity {
             if(tileList[i].contains(x,y)){
                 lastSelected = tileList[i];
                 if(lastSelected.isThisThingOn()){
+                	
                     lastSelected.setHighlight(TileStatus.SELECTED);
                     lastHighlighted = lastSelected.getAdjs();
                     for(i = 0; i < lastHighlighted.length; i++){
@@ -113,13 +114,19 @@ public class Board extends Entity {
      */
     public void render(Graphics2D g2D){
         int i;
+
         for(i = 0; i < tileList.length; i++){
             tileList[i].render(g2D);
         }
-        for(i = 0; i < lastHighlighted.length; i++){
-            lastHighlighted[i].render(g2D);
+        if(lastHighlighted != null) {
+	        for(i = 0; i < lastHighlighted.length; i++){
+	        	if(lastHighlighted[i]!=null) {
+	        		lastHighlighted[i].render(g2D);
+	        	}
+	        }
         }
-        lastSelected.render(g2D);
+       if(lastSelected != null) 
+    	   lastSelected.render(g2D);
     }
     
     /**

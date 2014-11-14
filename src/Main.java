@@ -1,6 +1,8 @@
 import javax.swing.JOptionPane;
 
-
+import java.util.concurrent.*;
+import java.awt.*;
+import java.awt.event.*;
 
 
 public class Main {
@@ -69,11 +71,13 @@ public class Main {
 	    GameView gameView = new GameView();
 	    GameController gameController = new GameController(game, gameView);
 	    
-	    game.run();
+	    
+	    ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(3);
+	    
+	    executor.scheduleAtFixedRate(game, 0L, 20L, TimeUnit.MILLISECONDS);
+	    
+	   
 	}
 	
 	
-	
-
-
 }

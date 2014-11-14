@@ -16,6 +16,8 @@ public class GameController extends MouseAdapter implements ActionListener {
 		this.gameView = gameView;
 		gameView.setGameController(this);
 		
+		gameView.addEntity(game.getBoard());
+		
 		game.addObserver(gameView);
 		
 		
@@ -24,14 +26,16 @@ public class GameController extends MouseAdapter implements ActionListener {
 	
 	public void mouseClicked(MouseEvent e) {
 
-		
+
       	Tile clickedTile = game.getBoard().selectTile(e.getX(), e.getY());
-		
+		System.out.println(clickedTile);
 		if(clickedTile != null) {
 			
 			game.attemptTileMove(clickedTile);
 			
 		}
+		
+		gameView.repaint(); 
     }
 	
 	public void actionPerformed(ActionEvent e) {

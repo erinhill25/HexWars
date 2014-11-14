@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 /**
  * @author Spencer Davis
@@ -27,6 +28,7 @@ public class Tile extends Entity {
     protected Tile(Polygon shape, int centerX, int centerY, int numSides, ColorScheme colors, int baseColorIndex){
         polyGon     = shape;
         adjTiles    = new Tile[numSides];
+        System.out.println("B " + baseColorIndex);
         colorIdx    = baseColorIndex;
         this.colors = colors;
         isActive    = true;
@@ -175,12 +177,15 @@ public class Tile extends Entity {
                     g2D.draw(polyGon);
                     break;
                 default:
+               
                     break;
             }
             if(tacUnit != null){
                 tacUnit.render(g2D);
-            }           
+            } 
         }else{
+        	
+        	
             g2D.setColor(colors.inactive);
             g2D.fill(polyGon);
         }

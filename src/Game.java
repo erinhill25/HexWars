@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class Game extends Observable {
+public class Game extends Observable implements Runnable {
 	
 	protected long lastTime;
 	protected Unit activeUnit;
@@ -252,31 +252,12 @@ public class Game extends Observable {
 		 
 	 }
 	 
-	 /*
-	  * Calls update 60 times a second
-	  */
+	 
 	 public void run() {
 		 
-		 while(true) {
-			 
-			 //long now = System.nanoTime();
-			 //long diff = now - lastTime;
-	
-			 //diff /= 1000000; //Nano to milliseconds
-			 
-			// if(diff > (1000 / 60)) {
-				 update();
-				// lastTime = now;
-			// }
-			 
-			 
-			 try {
-				Thread.sleep(1000/60);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
+		 update();
+		 
 	 }
+	 
 	
 }
