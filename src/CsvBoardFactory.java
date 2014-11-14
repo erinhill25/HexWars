@@ -42,10 +42,7 @@ public class CsvBoardFactory implements BoardFactory{
         inRad    = size;
         halfSide = inRad*1.15470; // inRad*tan(30)
         exRad    = inRad*0.57735; // radius = inRad/cos(30)
-        
-        
-        
-
+       
         String[][] initMatrix = readFile(filePath);
         Tile[][] tileMatrix = new Tile[initMatrix.length][initMatrix[0].length];
         String tileInit;
@@ -83,6 +80,7 @@ public class CsvBoardFactory implements BoardFactory{
                         }
                         if(unit != null){
                             units.addUnit(unit);
+                            tileMatrix[i][j].setUnit(unit);
                         }//end if unit != null
                     }else{
                         tileMatrix[i][j].toggleActive();

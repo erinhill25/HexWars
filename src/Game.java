@@ -28,7 +28,7 @@ public class Game extends Observable implements Runnable {
 		} catch (IOException e) {
 			System.out.println("Loading of board resource failed");
 		}
-
+		changePlayer(0);
 	}
 	
 	/*
@@ -44,18 +44,27 @@ public class Game extends Observable implements Runnable {
 	/*
 	 * Flip the current player, reset move counts for all of their units, and notify
 	 */
-	public void changePlayer() {
+	public void changePlayer(int newPlayer) {
 		
 		//Reset move counts
 		
 		ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		for(Unit i : playerUnits) {
 			
+			System.out.println("Resetting moves");
 			i.setMovesRemaining(i.getPossibleMoves());
 			
 		}
 		
-		currentPlayer = currentPlayer ^ 1; 
+		currentPlayer = newPlayer; 
+		
+		ArrayList<Unit> otherPlayerUnits = unitHandler.getPlayerUnits(currentPlayer);
+		for(Unit i : otherPlayerUnits) {
+			
+			System.out.println("Resetting moves");
+			i.setMovesRemaining(i.getPossibleMoves());
+			
+		}
 		
 		this.setChanged();
 		this.notifyObservers(new ObservableArgs("currentPlayer", currentPlayer));
@@ -119,6 +128,7 @@ public class Game extends Observable implements Runnable {
 		 if(activeUnit == null) {
 			 
 			 activeUnit = tile.getUnit();
+			 System.out.println("setting active un" + activeUnit);
 			 return;
 			 
 		 } 
@@ -128,8 +138,9 @@ public class Game extends Observable implements Runnable {
 			 return;
 		 }
 		 
-		 
-		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
+		 System.out.println(activeUnit.getMovesRemaining());
+		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || (tile.getHighlight() != TileStatus.SELECTED && tile.getHighlight() != TileStatus.REACHABLE)) {
+			 System.out.println("FAILURE");
 			 return;
 		 }
 		 
@@ -205,7 +216,7 @@ public class Game extends Observable implements Runnable {
 			 /* All of the player's units moves are 0 */
 			 if(!canMove) {
 				 
-				 this.changePlayer();
+				 this.changePlayer(currentPlayer ^ 1);
 				 
 			 }
 			 
