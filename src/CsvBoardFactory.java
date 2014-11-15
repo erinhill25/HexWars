@@ -52,9 +52,7 @@ public class CsvBoardFactory implements BoardFactory{
                 tileInit = initMatrix[i][j];
                 if(tileInit.charAt(0) != 'V'){
                 	
-                	
                 	int colorIdx = Integer.parseInt(tileInit.substring(1, 2)); 
-                	System.out.println();
                     tileMatrix[i][j] = 
                             new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,colorIdx);
                     if(tileInit.charAt(0) == 'A'){

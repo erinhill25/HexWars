@@ -22,6 +22,18 @@ public class Board extends Entity {
         lastSelected = null;
     }
     
+    
+    public Tile getTileAtCoords(int x, int y) {
+    	
+    	 for(int i = 0; i < tileList.length; i++){
+             if(tileList[i].contains(x,y)){
+            	 
+            	 return tileList[i];
+             }
+    	 }
+    	 return null;
+    }
+    
     /**
      * Clears current highlights, then finds a Tile, if there is one, at the graphical location specified.
      * If there is no active Tile at the location specified, this method returns null. Otherwise, it highlights
@@ -32,28 +44,12 @@ public class Board extends Entity {
      */
     public Tile selectTile(int x, int y){
         clearHighlights();
-        for(int i = 0; i < tileList.length; i++){
-            if(tileList[i].contains(x,y)){
-                lastSelected = tileList[i];
-                if(lastSelected.isThisThingOn()){
-                	
-                    lastSelected.setHighlight(TileStatus.SELECTED);
-                    lastHighlighted = lastSelected.getAdjs();
-                    for(i = 0; i < lastHighlighted.length; i++){
-                        if((lastHighlighted[i] != null) && (lastHighlighted[i].isThisThingOn()))
-                            lastHighlighted[i].setHighlight(TileStatus.REACHABLE);
-                    }
-                    return lastSelected;
-                }else{
-                    lastSelected    = null;
-                    lastHighlighted = null;
-                    return null;
-                }
-            }
-        }
-        lastSelected    = null;
-        lastHighlighted = null;
-        return null;
+        
+        Tile found = getTileAtCoords(x,y);
+        
+        selectTile(found);
+        
+        return found;
     }
     
     /**
@@ -64,7 +60,8 @@ public class Board extends Entity {
      */
     public boolean selectTile(Tile aTile){
         clearHighlights();
-        if(lastSelected.isThisThingOn()){
+        lastSelected = aTile;
+        if(lastSelected != null && lastSelected.isThisThingOn()){
             lastSelected.setHighlight(TileStatus.SELECTED);
             lastHighlighted = lastSelected.getAdjs();
             for(int i = 0; i < lastHighlighted.length; i++){
@@ -72,7 +69,8 @@ public class Board extends Entity {
                     lastHighlighted[i].setHighlight(TileStatus.REACHABLE);
             }
             return true;
-        }else return false;
+        }
+        return false;
     }
     
     /**

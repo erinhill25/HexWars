@@ -39,6 +39,7 @@ public class Main {
 	    GameView gameView = new GameView();
 	    GameController gameController = new GameController(game, gameView);
 	    
+	    game.startGame();
 	    
 	    ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(3);
 	    

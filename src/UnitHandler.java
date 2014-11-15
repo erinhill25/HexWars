@@ -30,6 +30,13 @@ public class UnitHandler {
 		
 	}
 	
+	public void destroyAllUnits() {
+		
+		player1Units = new ArrayList<Unit>();
+		player2Units = new ArrayList<Unit>();
+		
+	}
+	
 	
 	public ArrayList<Unit> getPlayerUnits(int player) {
 		if(player == 0)

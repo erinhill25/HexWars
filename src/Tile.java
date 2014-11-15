@@ -28,7 +28,6 @@ public class Tile extends Entity {
     protected Tile(Polygon shape, int centerX, int centerY, int numSides, ColorScheme colors, int baseColorIndex){
         polyGon     = shape;
         adjTiles    = new Tile[numSides];
-        System.out.println("B " + baseColorIndex);
         colorIdx    = baseColorIndex;
         this.colors = colors;
         isActive    = true;
@@ -142,7 +141,7 @@ public class Tile extends Entity {
      * Returns the x location of the Tile's Polygon's center.
      * @return the x location of the Tile's Polygon's center.
      */
-    public int getX(){
+    public double getX(){
         return x;
     }
     
@@ -150,7 +149,7 @@ public class Tile extends Entity {
      * Returns the y location of the Tile's Polygon's center.
      * @return the y location of the Tile's Polygon's center.
      */
-    public int getY(){
+    public double getY(){
         return y;
     }
     

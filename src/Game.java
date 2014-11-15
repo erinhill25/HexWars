@@ -17,7 +17,7 @@ public class Game extends Observable implements Runnable {
 	
 	String boardCSV = "resources/DefaultBoard.csv";
 	
-	boolean hasMadeMove = false, gameActive = true;
+	boolean hasMadeMove = false, gameActive = false;
 
 	public Game() {
 
@@ -28,6 +28,12 @@ public class Game extends Observable implements Runnable {
 		} catch (IOException e) {
 			System.out.println("Loading of board resource failed");
 		}
+		
+	}
+	
+	public void startGame() {
+		gameActive = true;
+		
 		changePlayer(0);
 	}
 	
@@ -51,7 +57,6 @@ public class Game extends Observable implements Runnable {
 		ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		for(Unit i : playerUnits) {
 			
-			System.out.println("Resetting moves");
 			i.setMovesRemaining(i.getPossibleMoves());
 			
 		}
@@ -61,17 +66,21 @@ public class Game extends Observable implements Runnable {
 		ArrayList<Unit> otherPlayerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		for(Unit i : otherPlayerUnits) {
 			
-			System.out.println("Resetting moves");
 			i.setMovesRemaining(i.getPossibleMoves());
 			
 		}
 		
-		this.setChanged();
 		this.notifyObservers(new ObservableArgs("currentPlayer", currentPlayer));
-		this.setChanged();
 		this.notifyObservers(new ObservableArgs("endTurnActive", false));
 		
 		hasMadeMove = false;
+		
+	}
+	
+	public void endTurn() {
+		
+		board.clearHighlights();
+		changePlayer(currentPlayer ^ 1);
 		
 	}
 	
@@ -80,7 +89,9 @@ public class Game extends Observable implements Runnable {
 	 */
 	 public void update() {
 		 
-		 board.update(); 
+		board.update(); 
+		this.setChanged();
+		this.notifyObservers(new ObservableArgs("update", true));
 		 
 	 }
 	 
@@ -98,19 +109,27 @@ public class Game extends Observable implements Runnable {
 	  */
 	 public void resetGame() {
 		 
-		currentPlayer = 0;
+		board.clearHighlights();
 		winner = -1;
 		gameActive = true;
 		activeUnit = null;
 		
+		unitHandler.destroyAllUnits();
+		
 		try {
-			board = boardFactory.constructBoard(unitHandler, 40, boardCSV);
+			board = boardFactory.constructBoard(unitHandler, 25, boardCSV);
 		} catch (IOException e) {
 			System.out.println("Loading of board resource failed");
 			return;
 		}
-		this.setChanged();
 		this.notifyObservers(new ObservableArgs("gameReset", true)); 
+		changePlayer(0);
+	 }
+	 
+	 public void unsetActiveUnit() {
+		 activeUnit = null;
+		 board.clearHighlights();
+		 this.notifyObservers(new ObservableArgs("movesRemaining", -1));
 	 }
 	 
 	 /*
@@ -125,125 +144,141 @@ public class Game extends Observable implements Runnable {
 
 		 if(!gameActive) return;
 		 
-		 if(activeUnit == null) {
+		 
+		 Unit otherUnit = tile.getUnit();
+		 
+		 /*
+		  * If the tile clicked has a unit, its not the current unit, and its the current players unit, set it active
+		  */
+		 if(otherUnit != null && otherUnit != activeUnit && otherUnit.getPlayer() == currentPlayer) {
 			 
+			 System.out.println("setting new active");
 			 activeUnit = tile.getUnit();
-			 System.out.println("setting active un" + activeUnit);
+			 
+			 if(activeUnit != null) {
+				 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
+			 }
+			 board.selectTile(tile);
+			 
 			 return;
 			 
 		 } 
-		 else if(tile.getUnit() == activeUnit) {
-			 
-			 activeUnit = null; 
+		
+		 /* No active unit, then nothing to do */
+		 if(activeUnit == null) return;
+		 
+		 /*
+		  * Active unit will unset in the following conditions:
+		  * - The tile's unit is the active unit (active unit toggle)
+		  * - The tile's unit is not the player's unit
+		  * - The unit is out of moves
+		  * - The tile is not accessible
+		  */
+		 if(otherUnit == activeUnit || activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
+			 unsetActiveUnit();
 			 return;
 		 }
 		 
-		 System.out.println(activeUnit.getMovesRemaining());
-		 if(activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || (tile.getHighlight() != TileStatus.SELECTED && tile.getHighlight() != TileStatus.REACHABLE)) {
-			 System.out.println("FAILURE");
-			 return;
-		 }
-		 
-		 Unit otherUnit = tile.getUnit();
+		
+		 /* Unit will move if tile is unoccupied or the tile contains an enemy unit */
 		 if(otherUnit == null || otherUnit.getPlayer() != currentPlayer) 
 		 {
-			 
+			
 			 activeUnit.setDestination(tile);
+			 board.selectTile(tile);
 			 
-			 /* Battle engaged */
+			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
+			 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
+			 
+			 /* Battle engaged if tile occupied by enemy.
+			  * Only after winning should the tile be updated with the active unit */
 			 if(otherUnit != null) 
 			 {
 					  
-				  Unit winner = this.engageBattle(activeUnit, otherUnit);
-				 
-				  if(winner == activeUnit) 
-				  {
-					  
-					  tile.setUnit(activeUnit);
-					  
-				   	  unitHandler.removeUnit(otherUnit);
-					  
-					  //playerUnits = unitHandler.getPlayerUnits(otherUnit.getPlayer());
-					
-					  
-				  } 
-				  else 
-				  {  
-					  unitHandler.removeUnit(activeUnit); 
-					 //playerUnits = unitHandler.getPlayerUnits(currentPlayer);
-		
-				  }
-				  
-				  this.setChanged();
-				  this.notifyObservers(new ObservableArgs("battleWinner", winner.getPlayer()));
-				  
-				  //Determine if the player who won the battle won the game
-				  if(this.determineWinner(winner.getPlayer())) {
-					 return;
-				  }
+				 Unit winner = handleBattle(activeUnit, otherUnit);
+				 if(winner == activeUnit) {
+					 tile.setUnit(activeUnit);
+				 }
 				  
 			 }
 			 else 
 			 {
-					 
-				 tile.setUnit(activeUnit);
-					 
+				 tile.setUnit(activeUnit);				 
 			 }
 			 
-			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
-			 this.setChanged();
-			 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
+
 			 
 			 /* Notify that a move has been made, and the player can end their turn */
 			 if(!hasMadeMove) {
 				 hasMadeMove = true;
-				 this.setChanged();
 				 this.notifyObservers(new ObservableArgs("endTurnActive", true));
 			 }
 			
 			 
-			 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(currentPlayer);
-			 boolean canMove = false;
-			 for(Unit i : playerUnits) {
+			 
+			 /* All of the player's units moves are 0 */
+			 if(!hasMovesRemaining(currentPlayer)) {
 				 
-				 if(i.getMovesRemaining() != 0) {
-					 canMove = true;
-					 break; 
-				 }
+				 this.endTurn();
 				 
 			 }
 			 
-			 /* All of the player's units moves are 0 */
-			 if(!canMove) {
-				 
-				 this.changePlayer(currentPlayer ^ 1);
-				 
+		 } 
+		 
+	 }
+	 
+	 /*
+	  * Given a player, determine if any of their units have moves remaining
+	  */
+	 public boolean hasMovesRemaining(int player) {
+	
+		 
+		 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(player);
+		 for(Unit i : playerUnits) {
+			 
+			 if(i.getMovesRemaining() != 0) {
+				 return true;
 			 }
 			 
 		 }
 		 
+		 return false;
+		 
 	 }
 	 
 	 
-	 public boolean determineWinner(int winner) {
+	 public Unit handleBattle(Unit activeUnit, Unit otherUnit) {
 		 
-		 int loser = winner ^ 1;
-		 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(loser);
+		  Unit loser = null;
+		  Unit winner = this.engageBattle(activeUnit, otherUnit);
+		 
+		  if(winner == activeUnit) 
+		  {
+			  loser = otherUnit;
+		
+		   	  unitHandler.removeUnit(otherUnit);
+
+		  } 
+		  else 
+		  {  
+			  loser = activeUnit;
+			  unitHandler.removeUnit(activeUnit); 
+			  unsetActiveUnit();
+
+		  }
 		  
-		  /* Winner time! */
-		  if(playerUnits.size() == 0) {
+		  this.notifyObservers(new ObservableArgs("battleWinner", winner.getPlayer()));
+		  
+		  if(loser instanceof King) {
 			  
-			  this.gameActive = false;
-			  this.winner = winner;
-			  this.setChanged();
-			  this.notifyObservers(new ObservableArgs("gameWinner", winner));
-			  
-			  return true;
+			  this.setWinner(winner.getPlayer());
 			  
 		  }
 		  
-		  return false;
-		 
+		  //Determine if the player who won the battle won the game
+		  this.determineWinner(winner.getPlayer());
+
+		  return winner;
 	 }
 	 
 	 /*
@@ -262,6 +297,42 @@ public class Game extends Observable implements Runnable {
 		 }
 		 
 	 }
+	 
+	 
+	 public boolean determineWinner(int winner) {
+		 
+		 int loser = winner ^ 1;
+		 ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(loser);
+		  
+		  /* Big Winner time! */
+		  if(playerUnits.size() == 0) {
+			  
+			 setWinner(winner);
+			 return true;
+			  
+		  }
+		  
+		  return false;
+		 
+	 }
+	 
+	 public void setWinner(int winner) {
+		 
+		  this.gameActive = false;
+		  this.winner = winner;
+		  this.notifyObservers(new ObservableArgs("gameWinner", winner));
+		  board.clearHighlights();
+		  
+	 }
+	 
+	 public void notifyObservers(Object message) {
+		 
+		 this.setChanged();
+		 super.notifyObservers(message);
+		 
+	 }
+	 
+
 	 
 	 
 	 public void run() {

@@ -27,7 +27,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 	public void mouseClicked(MouseEvent e) {
 
 
-      	Tile clickedTile = game.getBoard().selectTile(e.getX(), e.getY());
+      	Tile clickedTile = game.getBoard().getTileAtCoords(e.getX(), e.getY());
 		System.out.println(clickedTile);
 		if(clickedTile != null) {
 			
@@ -35,12 +35,28 @@ public class GameController extends MouseAdapter implements ActionListener {
 			
 		}
 		
-		gameView.repaint(); 
     }
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		//TODO things
+		if(e.getActionCommand() == "endTurn") {
+			
+			game.endTurn();
+			
+		}
+		else if(e.getActionCommand() == "resetGame") {
+			
+			gameView.removeEntity(game.getBoard());
+			
+			game.resetGame();
+			
+			gameView.addEntity(game.getBoard());
+		}
+		
+		else if(e.getActionCommand() == "exit") {
+			
+			System.exit(0);
+		}
 		
 	}
 

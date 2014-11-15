@@ -3,16 +3,20 @@ import java.awt.*;
 
 public class Unit extends Entity {
 
+	final int speed = 3;
 	int owner;
 	int movesRemaining, possibleMoves;
-	int destinationX = -1, destinationY = -1;
+ 	double destinationX = -1, destinationY = -1;
+ 	double velX=0, velY=0;
 	int rad;
+	Tile tile;
 	
 	public Unit(int owner, Tile tile, int radius) {
 		
 		x = tile.getX();
 		y = tile.getY();
 		this.rad = radius;
+		this.tile = tile;
 		
 		if(owner == 1 || owner == 0) 
 			this.owner = owner;
@@ -22,29 +26,57 @@ public class Unit extends Entity {
 		movesRemaining = possibleMoves;
 	}
 	
+	public Tile getTile() {
+		return tile;
+	}
+	
+	public void setTile(Tile tile) {
+		this.tile = tile;
+	}
+	
 	void render(Graphics2D g) {
 	
 		g.setPaint(new GradientPaint(0, 0, new Color(6, 28, 100), 20, 20,
 	       new Color(5, 7, 100, 27), true));
-		g.fillOval(x-rad, y-rad, rad*2, rad*2);
+		g.fillOval((int) x-rad, (int) y-rad, rad*2, rad*2);
 	}
 
 	void update() {
 		
-		if(destinationX == x) 
-			destinationX = -1;
-		if(destinationY == y)
-			destinationY = -1;
+double tx = destinationX - x, ty = destinationY - y;
 		
-		if(destinationX != -1)
-			x=(destinationX < x) ? x-- : x++;
+		double dist = Math.sqrt(tx*tx+ty*ty); //Distance formula
+			
+		velX = (velX == 0 && destinationX !=-1) ? ((tx/dist)*speed) : velX;
+		velY = (velY == 0 && destinationY !=-1) ? ((ty/dist)*speed) : velY;
 		
-		if(destinationY != -1)
-			y=(destinationY < y) ? y-- : y++;
+        if(dist > 1){
+          x += (destinationX != -1) ? velX : 0;
+          y += (destinationY != -1) ? velY : 0;
+          
+        }
+        
+        if(Math.abs(destinationX - x) <= 2) {
+        	x = destinationX;
+        	destinationX = -1;
+        	velX=0;
+        }
+        
+        
+        if(Math.abs(destinationY - y) <= 2) {
+        	y = destinationY;
+        	destinationY = -1;
+        	velY = 0;
+        }
+        
 		
 	}
 
 	public void setDestination(Tile tile) {
+		
+		this.tile.setUnit(null);
+		this.tile = tile; 
+		
 		destinationX = tile.getX();
 		destinationY = tile.getY();
 	}
