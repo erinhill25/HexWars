@@ -9,12 +9,11 @@
 /GameView.class
 /King.class
 /Main.class
+/MenuController.class
+/MenuView.class
 /ObservableArgs.class
-/Player.class
 /Soldier.class
 /Tile.class
 /TileStatus.class
 /Unit.class
-/MenuController.class
-/MenuView.class
-/GameView$GamePanel$1.class
+/UnitHandler.class
