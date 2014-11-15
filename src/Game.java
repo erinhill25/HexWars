@@ -152,7 +152,6 @@ public class Game extends Observable implements Runnable {
 		  */
 		 if(otherUnit != null && otherUnit != activeUnit && otherUnit.getPlayer() == currentPlayer) {
 			 
-			 System.out.println("setting new active");
 			 activeUnit = tile.getUnit();
 			 
 			 if(activeUnit != null) {

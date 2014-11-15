@@ -28,7 +28,6 @@ public class GameController extends MouseAdapter implements ActionListener {
 
 
       	Tile clickedTile = game.getBoard().getTileAtCoords(e.getX(), e.getY());
-		System.out.println(clickedTile);
 		if(clickedTile != null) {
 			
 			game.attemptTileMove(clickedTile);

@@ -1,5 +1,5 @@
 import java.awt.*;
-
+import java.util.*;
 
 public class Unit extends Entity {
 
@@ -9,6 +9,7 @@ public class Unit extends Entity {
  	double destinationX = -1, destinationY = -1;
  	double velX=0, velY=0;
 	int rad;
+	Stack<Tile> history = new Stack<Tile>();
 	Tile tile;
 	
 	public Unit(int owner, Tile tile, int radius) {
@@ -17,6 +18,7 @@ public class Unit extends Entity {
 		y = tile.getY();
 		this.rad = radius;
 		this.tile = tile;
+		history.push(tile);
 		
 		if(owner == 1 || owner == 0) 
 			this.owner = owner;
@@ -73,6 +75,17 @@ double tx = destinationX - x, ty = destinationY - y;
 	}
 
 	public void setDestination(Tile tile) {
+		
+		Tile last = (history.size() == 0) ? null : history.peek();
+		if(last == tile) {
+			
+			history.pop();
+			movesRemaining+=2; //Counteract decrement
+			
+		}
+		else {
+			history.push(this.tile);
+		}
 		
 		this.tile.setUnit(null);
 		this.tile = tile; 

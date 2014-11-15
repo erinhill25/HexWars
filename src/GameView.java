@@ -1,6 +1,8 @@
 import java.util.*;
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.font.TextLayout;
 
 public class GameView extends JFrame implements Observer {
@@ -26,6 +28,15 @@ public class GameView extends JFrame implements Observer {
 	
 	public GameView() {
 		
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		
+		 this.setTitle("HexWars");
+		
 	    JMenuBar bar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
 	    menu.setMnemonic('f');
@@ -44,7 +55,8 @@ public class GameView extends JFrame implements Observer {
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		
 		
-		gamePanel.setPreferredSize(new Dimension(850, 650));
+		gamePanel.setPreferredSize(new Dimension(WIDTH, 650));
+		gamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(gamePanel);
 		
 		
