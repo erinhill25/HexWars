@@ -223,6 +223,7 @@ public class GameView extends JFrame implements Observer {
 			 
 			 	super.paint(g1);
 			    Graphics2D g = (Graphics2D) g1;
+			    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 			   
 			    render(g);
 			    	

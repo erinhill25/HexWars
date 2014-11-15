@@ -8,11 +8,11 @@ public class Unit extends Entity {
 	int movesRemaining, possibleMoves;
  	double destinationX = -1, destinationY = -1;
  	double velX=0, velY=0;
-	int rad;
+	double rad;
 	Stack<Tile> history = new Stack<Tile>();
 	Tile tile;
 	
-	public Unit(int owner, Tile tile, int radius) {
+	public Unit(int owner, Tile tile, double radius) {
 		
 		x = tile.getX();
 		y = tile.getY();
@@ -40,7 +40,7 @@ public class Unit extends Entity {
 	
 		g.setPaint(new GradientPaint(0, 0, new Color(6, 28, 100), 20, 20,
 	       new Color(5, 7, 100, 27), true));
-		g.fillOval((int) x-rad, (int) y-rad, rad*2, rad*2);
+		g.fillOval((int) (x-rad), (int) (y-rad), (int) rad*2, (int) rad*2);
 	}
 
 	void update() {
