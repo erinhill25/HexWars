@@ -61,16 +61,16 @@ public class CsvBoardFactory implements BoardFactory{
                                 unit = null;
                                 break;
                             case 'P':
-                                unit = new Soldier(0,tileMatrix[i][j], size*2/3);
+                                unit = new Soldier(0,tileMatrix[i][j], size*.75);
                                 break;
                             case 'K':
-                                unit = new King(0,tileMatrix[i][j], size*2/3);
+                                unit = new King(0,tileMatrix[i][j], size*.75);
                                 break;
                             case 'S':
-                                unit = new Soldier(1,tileMatrix[i][j], size*2/3);
+                                unit = new Soldier(1,tileMatrix[i][j], size*.75);
                                 break;
                             case 'Q':
-                                unit = new King(1,tileMatrix[i][j], size*2/3);
+                                unit = new King(1,tileMatrix[i][j], size*.75);
                                 break;
                             default:
                                 unit = null;

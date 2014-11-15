@@ -176,7 +176,9 @@ public class Tile extends Entity {
                     g2D.draw(polyGon);
                     break;
                 default:
-               
+                    g2D.setColor(Color.BLACK);
+                    g2D.setStroke(new BasicStroke(2));
+                    g2D.draw(polyGon);
                     break;
             }
             if(tacUnit != null){
