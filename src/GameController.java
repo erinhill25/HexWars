@@ -40,6 +40,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
 		if(e.getActionCommand() == "endTurn") {
 			
+			gameView.setMovesRemaining(-1);
 			game.endTurn();
 			
 		}

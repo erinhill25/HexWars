@@ -102,6 +102,10 @@ public class GameView extends JFrame implements Observer {
 		entities.remove(e);
 
 	}
+	
+	public void setMovesRemaining(int movesRemaining) {
+		this.movesRemaining = movesRemaining;
+	}
 
 	public void update(Observable observed, Object arg) 
 	{
