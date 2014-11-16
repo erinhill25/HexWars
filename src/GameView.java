@@ -22,7 +22,7 @@ public class GameView extends JFrame implements Observer {
 	JTextArea notesArea = new JTextArea(5, 10);
 	JScrollPane notes = new JScrollPane(notesArea);
 	
-	public int movesRemaining = -1, winner = -1;
+	public int currentPlayer = 1, movesRemaining = -1, winner = -1;
 	
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
@@ -114,9 +114,9 @@ public class GameView extends JFrame implements Observer {
 			
 			movesRemaining=-1;
 			//Update UI label
-			int newPlayer = ((int) argument.getValue() + 1);
-			currentPlayerLabel.setText("Player " + newPlayer + "'s turn"); 
-			notesArea.append("\nPlayer " + newPlayer + "'s turn" );
+			currentPlayer = ((int) argument.getValue() + 1);
+			currentPlayerLabel.setText("Player " + currentPlayer + "'s turn"); 
+			notesArea.append("\nPlayer " + currentPlayer + "'s turn" );
 		}
 		
 		else if(argument.getName() == "endTurnActive") {
@@ -176,27 +176,46 @@ public class GameView extends JFrame implements Observer {
 	    
 	    
 	    if(movesRemaining != -1 && winner == -1) {
+	    	
+	    	g.setFont(new Font("Tahoma", Font.PLAIN, 30));
+	    	g.drawString(""+ movesRemaining, 15, gamePanel.getHeight()-30);
+	    	
 	    	g.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	    	g.drawString("Moves Remaining: " + movesRemaining, 10, gamePanel.getHeight()-30);
+	    	g.drawString("Moves Remaining", 40, gamePanel.getHeight()-30);
 	    }
+	    
+	    g.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    
+	    g.drawString("Player " + currentPlayer + "'s turn", gamePanel.getWidth()-125, gamePanel.getHeight()-30);
+	    
+	    g.setFont(new Font("Tahoma", Font.PLAIN, 24));
+	    g.setColor(new Color(57,124,212));
+	    
+	    g.drawString("Player 1", 15, 30);
+	    
+	    g.setColor(new Color(123,21,174));
+
+	    g.drawString("Player 2", gamePanel.getWidth()-125, 30);
+	    
+	
 	    
 	    if(winner != -1) {
 	    	
-	    	Font font = new Font("Tahoma", Font.PLAIN, 51);
+	    	Font font = new Font("Tahoma", Font.PLAIN, 55);
 	    	g.setFont(font);
 	    	
 	    	String winnerText = "Player " + winner + " wins!";
 	    	
 	    	TextLayout textLayout = new TextLayout(winnerText, font, g.getFontRenderContext());
 	    	
-	    	int x = gamePanel.getWidth()/2-180;
+	    	int x = gamePanel.getWidth()/2-188;
 	    	int y = gamePanel.getHeight()/2;
 	    	
-	    	 g.setPaint(new Color(255, 255, 255));
-	    	 textLayout.draw(g, x - 2, y + 1);
+	    	g.setPaint(Color.BLACK);
+	    	textLayout.draw(g, x - 2, y + 1);
 
-	    	 g.setPaint(Color.BLACK);
-	    	 textLayout.draw(g, x, y);
+	    	g.setPaint(Color.WHITE);
+	    	textLayout.draw(g, x, y);
 	    	
 	    	
 	    }
