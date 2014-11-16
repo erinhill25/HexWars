@@ -42,10 +42,16 @@ public class Unit extends Entity {
 	       new Color(5, 7, 100, 27), true));
 		g.fillOval((int) (x-rad), (int) (y-rad), (int) rad*2, (int) rad*2);
 	}
+	
+	public void clearHistory(){
+		
+		history.clear(); 
+		
+	}
 
 	void update() {
 		
-double tx = destinationX - x, ty = destinationY - y;
+		double tx = destinationX - x, ty = destinationY - y;
 		
 		double dist = Math.sqrt(tx*tx+ty*ty); //Distance formula
 			

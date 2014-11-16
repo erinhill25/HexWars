@@ -112,6 +112,7 @@ public class GameView extends JFrame implements Observer {
 		ObservableArgs argument = (ObservableArgs) arg;
 		if(argument.getName() == "currentPlayer") {
 			
+			movesRemaining=-1;
 			//Update UI label
 			int newPlayer = ((int) argument.getValue() + 1);
 			currentPlayerLabel.setText("Player " + newPlayer + "'s turn"); 

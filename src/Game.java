@@ -52,12 +52,13 @@ public class Game extends Observable implements Runnable {
 	 */
 	public void changePlayer(int newPlayer) {
 		
-		//Reset move counts
+		//Reset move counts and clear history
 		
 		ArrayList<Unit> playerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		for(Unit i : playerUnits) {
 			
 			i.setMovesRemaining(i.getPossibleMoves());
+			i.clearHistory();
 			
 		}
 		
@@ -67,6 +68,7 @@ public class Game extends Observable implements Runnable {
 		for(Unit i : otherPlayerUnits) {
 			
 			i.setMovesRemaining(i.getPossibleMoves());
+			i.clearHistory();
 			
 		}
 		
