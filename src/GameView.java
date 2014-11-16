@@ -1,9 +1,11 @@
 import java.util.*;
 import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.font.TextLayout;
+import java.io.*;
 
 public class GameView extends JFrame implements Observer {
 	
@@ -15,12 +17,13 @@ public class GameView extends JFrame implements Observer {
 	GameController gameController;
 	
 	JLabel currentPlayerLabel = new JLabel("Player 1's Turn"); 
-	JButton endTurnButton = new JButton("End Turn"); 
+	JButton endTurnButton = new JButton("End Turn");
 	JPanel gamePanel = new GamePanel();
 	
 	JMenuItem newGame, viewLog, exit;
 	JTextArea notesArea = new JTextArea(5, 10);
 	JScrollPane notes = new JScrollPane(notesArea);
+	
 	
 	public int currentPlayer = 1, movesRemaining = -1, winner = -1;
 	
@@ -34,8 +37,15 @@ public class GameView extends JFrame implements Observer {
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		try{
+            Image icon = ImageIO.read(new File("./resources/icon.png"));
+            this.setIconImage(icon);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 		
-		 this.setTitle("HexWars");
+		this.setTitle("HexWars");
+		    
 		
 	    JMenuBar bar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
@@ -234,28 +244,20 @@ public class GameView extends JFrame implements Observer {
 	private class GamePanel extends JPanel {
 
 		private static final long serialVersionUID = 1L;
-	
 		
 		public GamePanel(){ 
-			
-	
+			setDoubleBuffered(true);
 		}
 		
-	
-
 		public void paint(Graphics g1) {
-			 
-			 	super.paint(g1);
-			    Graphics2D g = (Graphics2D) g1;
-			    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-			   
-			    render(g);
+			super.paint(g1);
+			Graphics2D g = (Graphics2D) g1;
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			
+			render(g);
 			    	
-			    g.dispose();
-		 }	
+	        g.dispose();
+        }	
 		
-		
-	}
-	
-
+    }
 }
