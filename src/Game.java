@@ -72,8 +72,8 @@ public class Game extends Observable implements Runnable {
 			
 		}
 		
-		this.notifyObservers(new ObservableArgs("currentPlayer", currentPlayer));
-		this.notifyObservers(new ObservableArgs("endTurnActive", false));
+		this.notifyObservers(new ObservableArgs(GameConstants.CURRENT_PLAYER_OA, currentPlayer));
+		this.notifyObservers(new ObservableArgs(GameConstants.END_TURN_ACTIVE_OA, false));
 		
 		hasMadeMove = false;
 		
@@ -93,7 +93,7 @@ public class Game extends Observable implements Runnable {
 		 
 		board.update(); 
 		this.setChanged();
-		this.notifyObservers(new ObservableArgs("update", true));
+		this.notifyObservers(new ObservableArgs(GameConstants.UPDATE_OA, true));
 		 
 	 }
 	 
@@ -124,14 +124,14 @@ public class Game extends Observable implements Runnable {
 			System.out.println("Loading of board resource failed");
 			return;
 		}
-		this.notifyObservers(new ObservableArgs("gameReset", true)); 
+		this.notifyObservers(new ObservableArgs(GameConstants.GAME_RESET_OA, true)); 
 		changePlayer(0);
 	 }
 	 
 	 public void unsetActiveUnit() {
 		 activeUnit = null;
 		 board.clearHighlights();
-		 this.notifyObservers(new ObservableArgs("movesRemaining", -1));
+		 this.notifyObservers(new ObservableArgs(GameConstants.MOVES_REMAINING_OA, -1));
 	 }
 	 
 	 /*
@@ -157,7 +157,7 @@ public class Game extends Observable implements Runnable {
 			 activeUnit = tile.getUnit();
 			 
 			 if(activeUnit != null) {
-				 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
+				 this.notifyObservers(new ObservableArgs(GameConstants.MOVES_REMAINING_OA, activeUnit.getMovesRemaining()));
 			 }
 			 board.selectTile(tile);
 			 
@@ -189,7 +189,7 @@ public class Game extends Observable implements Runnable {
 			 board.selectTile(tile);
 			 
 			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
-			 this.notifyObservers(new ObservableArgs("movesRemaining", activeUnit.getMovesRemaining()));
+			 this.notifyObservers(new ObservableArgs(GameConstants.MOVES_REMAINING_OA, activeUnit.getMovesRemaining()));
 			 
 			 /* Battle engaged if tile occupied by enemy.
 			  * Only after winning should the tile be updated with the active unit */
@@ -212,7 +212,7 @@ public class Game extends Observable implements Runnable {
 			 /* Notify that a move has been made, and the player can end their turn */
 			 if(!hasMadeMove) {
 				 hasMadeMove = true;
-				 this.notifyObservers(new ObservableArgs("endTurnActive", true));
+				 this.notifyObservers(new ObservableArgs(GameConstants.END_TURN_ACTIVE_OA, true));
 			 }
 			
 			 
@@ -268,7 +268,7 @@ public class Game extends Observable implements Runnable {
 
 		  }
 		  
-		  this.notifyObservers(new ObservableArgs("battleWinner", winner.getPlayer()));
+		  this.notifyObservers(new ObservableArgs(GameConstants.BATTLE_WINNER_OA, winner.getPlayer()));
 		  
 		  if(loser instanceof King) {
 			  
@@ -321,7 +321,7 @@ public class Game extends Observable implements Runnable {
 		 
 		  this.gameActive = false;
 		  this.winner = winner;
-		  this.notifyObservers(new ObservableArgs("gameWinner", winner));
+		  this.notifyObservers(new ObservableArgs(GameConstants.GAME_WINNER_OA, winner));
 		  board.clearHighlights();
 		  
 	 }

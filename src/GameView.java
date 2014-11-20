@@ -120,7 +120,7 @@ public class GameView extends JFrame implements Observer {
 	public void update(Observable observed, Object arg) 
 	{
 		ObservableArgs argument = (ObservableArgs) arg;
-		if(argument.getName() == "currentPlayer") {
+		if(argument.getName() == GameConstants.CURRENT_PLAYER_OA) {
 			
 			movesRemaining=-1;
 			//Update UI label
@@ -129,7 +129,7 @@ public class GameView extends JFrame implements Observer {
 			notesArea.append("\nPlayer " + currentPlayer + "'s turn" );
 		}
 		
-		else if(argument.getName() == "endTurnActive") {
+		else if(argument.getName() == GameConstants.END_TURN_ACTIVE_OA) {
 			
 			Boolean activate = (boolean) argument.getValue();
 			
@@ -138,14 +138,14 @@ public class GameView extends JFrame implements Observer {
 			
 		}
 		
-		else if(argument.getName() == "movesRemaining") {
+		else if(argument.getName() == GameConstants.MOVES_REMAINING_OA) {
 			
 		
 			movesRemaining = (int) argument.getValue(); 
 	
 		}
 		
-		else if(argument.getName() == "battleWinner") {
+		else if(argument.getName() == GameConstants.BATTLE_WINNER_OA) {
 			
 			int winner = ((int) argument.getValue() + 1);
 			notesArea.append("\nPlayer " + winner + " won the battle" );
@@ -153,7 +153,7 @@ public class GameView extends JFrame implements Observer {
 		}
 		
 		
-		else if(argument.getName() == "gameWinner") {
+		else if(argument.getName() == GameConstants.GAME_WINNER_OA) {
 			
 			//add Winner text
 			
@@ -162,7 +162,7 @@ public class GameView extends JFrame implements Observer {
 			notesArea.append("\nPlayer " + winner + " wins the game!" );
 		}
 		
-		else if(argument.getName() == "gameReset") {
+		else if(argument.getName() == GameConstants.GAME_RESET_OA) {
 			
 			//Remove winner text
 			endTurnButton.setEnabled(false);

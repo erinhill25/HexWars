@@ -67,15 +67,15 @@ implements ActionListener {
         int playerTwoValue = 0;
         
         if(playerOneSpin.getValue().toString() == GAME_TYPES[0]) {
-            playerOneValue = main.HUMAN_PLAYER;
+            playerOneValue = GameConstants.HUMAN_PLAYER_MIA;
         } else if (playerOneSpin.getValue().toString() == GAME_TYPES[1]) {
-            playerOneValue = main.AI_PLAYER;
+            playerOneValue = GameConstants.AI_PLAYER_MIA;
         } else { main.abortGame("Unknown Player type!");}
         
         if(playerTwoSpin.getValue().toString() == GAME_TYPES[0]) {
-            playerTwoValue = main.HUMAN_PLAYER;
+            playerTwoValue = GameConstants.HUMAN_PLAYER_MIA;
         } else if (playerTwoSpin.getValue().toString() == GAME_TYPES[1]) {
-            playerTwoValue = main.AI_PLAYER;
+            playerTwoValue = GameConstants.AI_PLAYER_MIA;
         } else { main.abortGame("Unknown Player type!");}
         
         main.startGame(playerOneValue, playerTwoValue);
