@@ -31,7 +31,17 @@ public class Game extends Observable implements Runnable {
 		
 	}
 	
+	public UnitHandler getUnitHandler() {
+		return unitHandler;
+	}
+	
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
 	public void startGame() {
+		
+		
 		gameActive = true;
 		
 		changePlayer(0);
@@ -48,6 +58,8 @@ public class Game extends Observable implements Runnable {
 	public void setActiveUnit(Unit unit) {
 		
 		this.activeUnit = unit;
+		
+		board.selectTile(unit.getTile());
 		
 		GameLogger.logActiveUnit(unit);
 		
@@ -70,7 +82,7 @@ public class Game extends Observable implements Runnable {
 		}
 		
 		currentPlayer = newPlayer; 
-		
+			
 		ArrayList<Unit> otherPlayerUnits = unitHandler.getPlayerUnits(currentPlayer);
 		for(Unit i : otherPlayerUnits) {
 			
@@ -83,8 +95,6 @@ public class Game extends Observable implements Runnable {
 		this.notifyObservers(new ObservableArgs(GameConstants.END_TURN_ACTIVE_OA, false));
 		
 		hasMadeMove = false;
-		
-		
 		
 		GameLogger.logPlayerTurn(currentPlayer);
 		
@@ -158,7 +168,7 @@ public class Game extends Observable implements Runnable {
 	 public void attemptTileMove(Tile tile) {
 		 
 
-		 if(!gameActive) return;
+		 if(!gameActive || tile == null) return;
 		 
 		 
 		 Unit otherUnit = tile.getUnit();
@@ -192,8 +202,7 @@ public class Game extends Observable implements Runnable {
 		 if(otherUnit == activeUnit || activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
 		     
 		     GameLogger.logMoveUnitFailed(activeUnit);
-		     
-		     
+	
 			 unsetActiveUnit();
 			 return;
 		 }

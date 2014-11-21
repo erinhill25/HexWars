@@ -16,7 +16,6 @@ public class GameView extends JFrame implements Observer {
 
 	GameController gameController;
 	
-	JLabel currentPlayerLabel = new JLabel("Player 1's Turn"); 
 	JButton endTurnButton = new JButton("End Turn");
 	JPanel gamePanel = new GamePanel();
 	
@@ -25,7 +24,7 @@ public class GameView extends JFrame implements Observer {
 	JScrollPane notes = new JScrollPane(notesArea);
 	
 	
-	public int currentPlayer = 1, movesRemaining = -1, winner = -1;
+	private int currentPlayer = 1, movesRemaining = -1, winner = -1;
 	
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
@@ -120,13 +119,13 @@ public class GameView extends JFrame implements Observer {
 	public void update(Observable observed, Object arg) 
 	{
 		ObservableArgs argument = (ObservableArgs) arg;
+		
 		if(argument.getName() == GameConstants.CURRENT_PLAYER_OA) {
 			
+			currentPlayer = (int) argument.getValue() + 1;
 			movesRemaining=-1;
-			//Update UI label
-			currentPlayer = ((int) argument.getValue() + 1);
-			currentPlayerLabel.setText("Player " + currentPlayer + "'s turn"); 
 			notesArea.append("\nPlayer " + currentPlayer + "'s turn" );
+			
 		}
 		
 		else if(argument.getName() == GameConstants.END_TURN_ACTIVE_OA) {

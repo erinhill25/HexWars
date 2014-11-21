@@ -10,7 +10,7 @@ public class SpencersAIBehavior extends AIBehavior {
     @Override
     public void makeMove(Unit unit){
         // Decide what tile to move to
-        Tile exampleTile = new Tile(null, 0, 0, 0, null, 0);
+        Tile exampleTile = unit.getTile().getAdj(3);
         controller.makeMove(unit, exampleTile);
     }
 }

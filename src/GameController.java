@@ -8,9 +8,9 @@ public class GameController extends MouseAdapter implements ActionListener {
 
 	protected Game game;
 	protected GameView gameView; 
+	protected AIController aI1, aI2;
 	
-	
-	public GameController(Game game, GameView gameView) {
+	public GameController(Game game, GameView gameView, int playerOneType, int playerTwoType) {
 		
 		this.game = game;
 		this.gameView = gameView;
@@ -18,15 +18,35 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
 		gameView.addEntity(game.getBoard());
 		
-		game.addObserver(gameView);
+	
 		
+		if(playerOneType == GameConstants.AI_PLAYER_MIA) {
+			aI1 = new AIController(this.game, game.getUnitHandler().getPlayerUnits(0), 0);	
+			
+			game.addObserver(aI1);
+		}
+		
+		if(playerTwoType == GameConstants.AI_PLAYER_MIA) {
+			aI2 = new AIController(this.game, game.getUnitHandler().getPlayerUnits(1), 1);	
+			
+			game.addObserver(aI2);
+		}
+		
+		game.addObserver(gameView);
 		
 	}
 	
 	
 	public void mouseClicked(MouseEvent e) {
 
-
+		
+		if(playerIsAI(game.getCurrentPlayer())) {
+			
+			return; 
+			
+		}
+		
+		
       	Tile clickedTile = game.getBoard().getTileAtCoords(e.getX(), e.getY());
 		if(clickedTile != null) {
 			
@@ -36,9 +56,15 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
     }
 	
+	public boolean playerIsAI(int player) {
+		
+		return (player == 0 && aI1 != null) || (player == 1 && aI2 != null);
+		
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getActionCommand() == "endTurn") {
+		if(e.getActionCommand() == "endTurn" && !playerIsAI(game.getCurrentPlayer())) {
 			
 			gameView.setMovesRemaining(-1);
 			game.endTurn();
