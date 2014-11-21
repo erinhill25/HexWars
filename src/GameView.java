@@ -103,7 +103,7 @@ public class GameView extends JFrame implements Observer {
 	
 	public void addEntity(Entity e) {
 		
-		entities.add(e);
+		System.out.println(entities.size());
 	}
 	
 	public void removeEntity(Entity e) {
@@ -248,8 +248,8 @@ public class GameView extends JFrame implements Observer {
 			setDoubleBuffered(true);
 		}
 		
-		public void paint(Graphics g1) {
-			super.paint(g1);
+		public void paintComponent(Graphics g1) {
+			super.paintComponent(g1);
 			Graphics2D g = (Graphics2D) g1;
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 			

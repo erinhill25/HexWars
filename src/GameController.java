@@ -36,6 +36,9 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
 	}
 	
+	 public void mouseDragged(MouseEvent e) {
+		this.mouseClicked(e);
+	}
 	
 	public void mouseClicked(MouseEvent e) {
 

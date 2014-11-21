@@ -8,7 +8,6 @@ public class UnitHandler {
 	ArrayList<Unit> player2Units = new ArrayList<Unit>();
 	
 	public UnitHandler() {
-		
 	}
 	
 	public void addUnit(Unit unit) {
