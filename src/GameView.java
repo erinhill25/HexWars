@@ -103,7 +103,7 @@ public class GameView extends JFrame implements Observer {
 	
 	public void addEntity(Entity e) {
 		
-		System.out.println(entities.size());
+		entities.add(e);
 	}
 	
 	public void removeEntity(Entity e) {
