@@ -88,7 +88,7 @@ public class GameLogger {
             return;
         }
         
-        fileWriter.append("Player + " + (player + 1) + "'s turn.\n");
+        fileWriter.append("Player " + (player + 1) + "'s turn.\n");
     }
     public static void logMoveUnit(Unit unitMoved) {
         if (fileWriter == null) { // If the fileWriter hasn't been opened, then do nothing

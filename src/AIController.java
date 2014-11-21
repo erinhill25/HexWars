@@ -39,8 +39,8 @@ public class AIController implements Observer {
      * Then end the turn
      */
     private void executeMoves() {
-        for(Unit unit : units) {
-            aI.makeMove(unit);
+        for(int i = 0; i < units.size(); ++i) {
+            aI.makeMove(units.get(i));
         }
         game.endTurn();
     }
