@@ -55,6 +55,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 		
 		else if(e.getActionCommand() == "exit") {
 			
+		    game.logExit();
 			System.exit(0);
 		}
 		

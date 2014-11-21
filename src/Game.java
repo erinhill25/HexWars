@@ -35,6 +35,11 @@ public class Game extends Observable implements Runnable {
 		gameActive = true;
 		
 		changePlayer(0);
+		
+		if (!GameLogger.isOpen()) {
+		    GameLogger.open();
+		}
+		GameLogger.logStartGame();
 	}
 	
 	/*
@@ -43,6 +48,8 @@ public class Game extends Observable implements Runnable {
 	public void setActiveUnit(Unit unit) {
 		
 		this.activeUnit = unit;
+		
+		GameLogger.logActiveUnit(unit);
 		
 	}
 	
@@ -76,6 +83,10 @@ public class Game extends Observable implements Runnable {
 		this.notifyObservers(new ObservableArgs(GameConstants.END_TURN_ACTIVE_OA, false));
 		
 		hasMadeMove = false;
+		
+		
+		
+		GameLogger.logPlayerTurn(currentPlayer);
 		
 	}
 	
@@ -126,6 +137,9 @@ public class Game extends Observable implements Runnable {
 		}
 		this.notifyObservers(new ObservableArgs(GameConstants.GAME_RESET_OA, true)); 
 		changePlayer(0);
+		
+		
+		GameLogger.logGameReset();
 	 }
 	 
 	 public void unsetActiveUnit() {
@@ -176,10 +190,14 @@ public class Game extends Observable implements Runnable {
 		  * - The tile is not accessible
 		  */
 		 if(otherUnit == activeUnit || activeUnit.getPlayer() != currentPlayer || activeUnit.getMovesRemaining()==0 || tile.getHighlight() != TileStatus.REACHABLE) {
+		     
+		     GameLogger.logMoveUnitFailed(activeUnit);
+		     
+		     
 			 unsetActiveUnit();
 			 return;
 		 }
-		 
+		 GameLogger.logMoveUnit(activeUnit);
 		
 		 /* Unit will move if tile is unoccupied or the tile contains an enemy unit */
 		 if(otherUnit == null || otherUnit.getPlayer() != currentPlayer) 
@@ -324,6 +342,8 @@ public class Game extends Observable implements Runnable {
 		  this.notifyObservers(new ObservableArgs(GameConstants.GAME_WINNER_OA, winner));
 		  board.clearHighlights();
 		  
+		  GameLogger.logEndGame(winner);
+		  
 	 }
 	 
 	 public void notifyObservers(Object message) {
@@ -340,6 +360,12 @@ public class Game extends Observable implements Runnable {
 		 
 		 update();
 		 
+	 }
+	 
+	 
+	 
+	 public void logExit() {
+	     GameLogger.close();
 	 }
 	 
 	
