@@ -34,7 +34,7 @@ public class GameLogger {
         try
         {
             boolean append = true;
-            File saveFile = new File(FILE_NAME + gameNumber + ".txt");
+            File saveFile = new File("logs/" + FILE_NAME + gameNumber + ".txt");
             if (!saveFile.isFile())
             {
                 append = false;

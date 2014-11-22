@@ -19,6 +19,10 @@ public class AIController implements Observer {
         aI = new SpencersAIBehavior(this);
     }
     
+    public void setUnits(ArrayList<Unit> units){
+        this.units = units;
+    }
+    
     /*
      * Detect when it is this AI Player's turn
      */
