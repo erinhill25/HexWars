@@ -112,7 +112,9 @@ public class Game extends Observable implements Runnable {
 	 */
 	 public void update() {
 		 
-		board.update(); 
+		if(board != null) { 
+			board.update(); 
+		}
 		this.setChanged();
 		this.notifyObservers(new ObservableArgs(GameConstants.UPDATE_OA, true));
 		 
@@ -132,7 +134,6 @@ public class Game extends Observable implements Runnable {
 	  */
 	 public void resetGame() {
 		 
-		board.clearHighlights();
 		winner = -1;
 		gameActive = true;
 		activeUnit = null;
@@ -311,17 +312,17 @@ public class Game extends Observable implements Runnable {
 	 
 	 /*
 	  * Unit 1 is the invader, Unit 2 was invaded
-	  * Give the invader (unit 1),an advantage in the battle, 6/10 chance of winning vs 4/10
+	  * Give the invader (unit 1),an advantage in the battle, 90/100 chance of winning vs 1/100
 	  */
 	 public Unit engageBattle(Unit unit1, Unit unit2) {
 		 
-		 int  random = rand.nextInt(10);
+		 int  random = rand.nextInt(100);
 		 
-		 if(random % 2 == 0 || random % 9 == 0) {	 
-			 return unit1;
+		 if(random == 5) {	 
+			 return unit2;
 		 } else {
 			 
-			 return unit2;
+			 return unit1;
 		 }
 		 
 	 }
@@ -367,7 +368,13 @@ public class Game extends Observable implements Runnable {
 	 
 	 public void run() {
 		 
-		 update();
+		 try {
+			 update();
+		 }
+		 catch (Exception e) {
+			 e.printStackTrace();
+			 throw new RuntimeException(e);
+		 }
 		 
 	 }
 	 

@@ -10,6 +10,7 @@ public class Board extends Entity {
     protected UnitHandler units;
     protected Tile        lastSelected;
     protected Tile[]      lastHighlighted;
+    protected boolean 	  freeze;
     
     /**
      * Constructor.
@@ -20,8 +21,15 @@ public class Board extends Entity {
         tileList     = tiles;
         this.units   = units;
         lastSelected = null;
+        freeze=false;
     }
     
+    public void freeze() {
+    	freeze=true;
+    }
+    public void unfreeze() {
+    	freeze=false;
+    }
     
     public Tile getTileAtCoords(int x, int y) {
     	
@@ -131,13 +139,16 @@ public class Board extends Entity {
      * Calls update on all the units;
      */
     public void update(){
+    	if(freeze) return; 
         Iterator<Unit> unitIterator;
         Unit theUnit;
         for(int i = 0; i < 2; i++){
             unitIterator = units.getPlayerUnits(i).iterator();
             do{
                 theUnit = unitIterator.next();
-                theUnit.update();
+                if(theUnit != null) {
+                	theUnit.update();
+                }
             }while(unitIterator.hasNext());
         }
     }

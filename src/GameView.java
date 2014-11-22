@@ -106,6 +106,10 @@ public class GameView extends JFrame implements Observer {
 		entities.add(e);
 	}
 	
+	public void removeEntities() {
+		entities.clear(); 
+	}
+	
 	public void removeEntity(Entity e) {
 		
 		entities.remove(e);
@@ -232,7 +236,6 @@ public class GameView extends JFrame implements Observer {
 	
 	public void repaint() {
 		
-		super.repaint();
 		gamePanel.repaint();
 		
 	}

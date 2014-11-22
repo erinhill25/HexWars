@@ -11,6 +11,7 @@ public class Unit extends Entity {
 	double rad;
 	Stack<Tile> history = new Stack<Tile>();
 	Tile tile;
+	boolean moving = false;
 	
 	public Unit(int owner, Tile tile, double radius) {
 		
@@ -60,14 +61,14 @@ public class Unit extends Entity {
 		
         if(dist > 1){
           x += (destinationX != -1) ? velX : 0;
-          y += (destinationY != -1) ? velY : 0;
-          
+          y += (destinationY != -1) ? velY : 0; 
         }
         
         if(Math.abs(destinationX - x) <= 2) {
         	x = destinationX;
         	destinationX = -1;
         	velX=0;
+        	moving=false;
         }
         
         
@@ -75,9 +76,9 @@ public class Unit extends Entity {
         	y = destinationY;
         	destinationY = -1;
         	velY = 0;
+        	moving=false;
         }
         
-		
 	}
 
 	public void setDestination(Tile tile) {
@@ -96,6 +97,7 @@ public class Unit extends Entity {
 		this.tile.setUnit(null);
 		this.tile = tile; 
 		
+		moving=true;
 		destinationX = tile.getX();
 		destinationY = tile.getY();
 	}
