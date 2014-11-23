@@ -29,6 +29,12 @@ public class Unit extends Entity {
 		movesRemaining = possibleMoves;
 	}
 	
+	public Tile[] getPossibleMoveLocations() {
+		
+		return this.tile.getAdjs();
+		
+	}
+	
 	public Tile getTile() {
 		return tile;
 	}

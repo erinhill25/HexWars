@@ -214,7 +214,7 @@ public class Game extends Observable implements Runnable {
 		 {
 			
 			 activeUnit.setDestination(tile);
-			 board.selectTile(tile);
+			
 			 
 			 activeUnit.setMovesRemaining(activeUnit.getMovesRemaining()-1);
 			 this.notifyObservers(new ObservableArgs(GameConstants.MOVES_REMAINING_OA, activeUnit.getMovesRemaining()));
@@ -235,7 +235,7 @@ public class Game extends Observable implements Runnable {
 				 tile.setUnit(activeUnit);				 
 			 }
 			 
-
+			 board.selectTile(tile);
 			 
 			 /* Notify that a move has been made, and the player can end their turn */
 			 if(!hasMadeMove) {

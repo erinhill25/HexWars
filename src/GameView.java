@@ -4,8 +4,11 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import java.awt.font.TextLayout;
-import java.io.*;
 
 public class GameView extends JFrame implements Observer {
 	
@@ -23,6 +26,8 @@ public class GameView extends JFrame implements Observer {
 	JTextArea notesArea = new JTextArea(5, 10);
 	JScrollPane notes = new JScrollPane(notesArea);
 	
+	Sprite general = new Sprite(18, 35, 80, 80,	"resources/Player/general80.png");
+	Sprite frobKnobGeneral = new Sprite(WIDTH-140, 35, 80, 80, "resources/Player/frobknobgeneral80.png");
 	
 	private int currentPlayer = 1, movesRemaining = -1, winner = -1;
 	
@@ -45,6 +50,8 @@ public class GameView extends JFrame implements Observer {
 		
 		this.setTitle("HexWars");
 		    
+		entities.add(general);
+		entities.add(frobKnobGeneral);
 		
 	    JMenuBar bar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
@@ -214,6 +221,10 @@ public class GameView extends JFrame implements Observer {
 	    
 	    if(winner != -1) {
 	    	
+	    	
+	    	g.setColor(new Color(0, 0, 0, 150 ));
+			g.fillRect(0,gamePanel.getHeight()/2 - 65,WIDTH, 150);
+	 	
 	    	Font font = new Font("Tahoma", Font.PLAIN, 55);
 	    	g.setFont(font);
 	    	
@@ -222,7 +233,7 @@ public class GameView extends JFrame implements Observer {
 	    	TextLayout textLayout = new TextLayout(winnerText, font, g.getFontRenderContext());
 	    	
 	    	int x = gamePanel.getWidth()/2-188;
-	    	int y = gamePanel.getHeight()/2;
+	    	int y = gamePanel.getHeight()/2 + 22;
 	    	
 	    	g.setPaint(Color.BLACK);
 	    	textLayout.draw(g, x - 2, y + 1);
@@ -232,6 +243,8 @@ public class GameView extends JFrame implements Observer {
 	    	
 	    	
 	    }
+	
+	  
 	}
 	
 	public void repaint() {

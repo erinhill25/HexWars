@@ -66,18 +66,28 @@ public class Board extends Entity {
      * @param aTile the Tile specified
      * @return whether or not the highlights actually took place
      */
-    public boolean selectTile(Tile aTile){
+    public boolean selectTile(Tile aTile) {
         clearHighlights();
         lastSelected = aTile;
-        if(lastSelected != null && lastSelected.isThisThingOn()){
-            lastSelected.setHighlight(TileStatus.SELECTED);
-            lastHighlighted = lastSelected.getAdjs();
-            for(int i = 0; i < lastHighlighted.length; i++){
-                if((lastHighlighted[i] != null) && (lastHighlighted[i].isThisThingOn()))
-                    lastHighlighted[i].setHighlight(TileStatus.REACHABLE);
-            }
-            return true;
+        lastHighlighted = new Tile[6];
+        if(lastSelected != null && lastSelected.isThisThingOn()) 
+        {
+        	lastSelected.setHighlight(TileStatus.SELECTED);
+        	if(aTile.getUnit() == null) return true;
+	        Tile[] possibleMoves = aTile.getUnit().getPossibleMoveLocations();
+	        
+	        int j = 0;
+	        for(int i=0;i<possibleMoves.length;i++) {
+	        	
+	        	if(possibleMoves[i] != null && possibleMoves[i].isThisThingOn()) {
+	        		possibleMoves[i].setHighlight(TileStatus.REACHABLE);
+	        		lastHighlighted[j++] = possibleMoves[i];
+	        	}
+	        	
+	        }
+	        return true;
         }
+    
         return false;
     }
     

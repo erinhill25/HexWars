@@ -76,8 +76,9 @@ public class GameController extends MouseAdapter implements ActionListener {
 		else if(e.getActionCommand() == "resetGame") {
 			
 			game.getBoard().freeze();
-			gameView.removeEntities(); 
-			gameView.repaint();
+			
+			gameView.removeEntity(game.getBoard());
+			
 			game.resetGame();
 			
 			gameView.addEntity(game.getBoard());

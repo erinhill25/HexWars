@@ -8,6 +8,7 @@ public class AIController implements Observer {
     private Game game;
     private AIBehavior aI;
     private ArrayList<Unit> units;
+    private static int moves = 0;
     
     private int playerNumber;
     
@@ -33,8 +34,10 @@ public class AIController implements Observer {
             if(playerNumber == (int) argument.getValue()) {
                 // If it is this AI Player's turn, then execute it's moves
                 executeMoves();
+      
             }
         }
+       
     }
     
     
@@ -46,6 +49,8 @@ public class AIController implements Observer {
         for(int i = 0; i < units.size(); ++i) {
             aI.makeMove(units.get(i));
         }
+        moves++;
+        System.out.println(moves);
         game.endTurn();
     }
     
