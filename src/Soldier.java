@@ -11,7 +11,7 @@ public class Soldier extends Unit {
 
 	public Soldier(int owner, Tile tile, double radius) {
 		super(owner, tile, radius);
-		possibleMoves = 1;
+		possibleMoves = 3;
 	}
 	
 	void render(Graphics2D g) {

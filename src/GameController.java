@@ -42,7 +42,6 @@ public class GameController extends MouseAdapter implements ActionListener {
 	
 	public void mouseClicked(MouseEvent e) {
 
-		
 		if(playerIsAI(game.getCurrentPlayer())) {
 			
 			return; 

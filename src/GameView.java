@@ -3,6 +3,7 @@ import java.awt.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.Timer;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +17,8 @@ public class GameView extends JFrame implements Observer {
 	public static final int HEIGHT = 700;
 	
 	private static final long serialVersionUID = 1L;
+	
+	private Timer timer = new Timer();
 
 	GameController gameController;
 	
@@ -26,7 +29,7 @@ public class GameView extends JFrame implements Observer {
 	JTextArea notesArea = new JTextArea(5, 10);
 	JScrollPane notes = new JScrollPane(notesArea);
 	
-	Sprite general = new Sprite(18, 35, 80, 80,	"resources/Player/general80.png");
+	GeneralSprite general = new GeneralSprite(18, 35, 80, 80);
 	Sprite frobKnobGeneral = new Sprite(WIDTH-140, 35, 80, 80, "resources/Player/frobknobgeneral80.png");
 	
 	private int currentPlayer = 1, movesRemaining = -1, winner = -1;
@@ -160,6 +163,19 @@ public class GameView extends JFrame implements Observer {
 			int winner = ((int) argument.getValue() + 1);
 			notesArea.append("\nPlayer " + winner + " won the battle" );
 			
+			if(winner == 1) {
+				general.setAnimation("win");
+			}
+			else {
+				
+				general.setAnimation("lose");
+				
+			}
+			timer.schedule(new TimerTask() {
+		        public void run() {
+		            resetSprites(); 
+		        }
+		    }, 3000);
 		}
 		
 		
@@ -183,6 +199,11 @@ public class GameView extends JFrame implements Observer {
 
 		gamePanel.repaint(); 
 		
+	}
+	
+	public void resetSprites() {
+		
+		general.setAnimation("default");
 	}
 	
 	public void render(Graphics2D g) {

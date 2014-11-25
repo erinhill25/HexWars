@@ -11,7 +11,7 @@ public class King extends Unit {
 	
 	public King(int owner, Tile tile, double radius) {
 		super(owner, tile, radius);
-		possibleMoves = 5;
+		possibleMoves = 8;
 	}
 
 	void render(Graphics2D g) {
