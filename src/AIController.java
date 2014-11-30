@@ -12,12 +12,12 @@ public class AIController implements Observer {
     
     private int playerNumber;
     
-    public AIController(Game game, ArrayList<Unit> units, int playerNumber) {
+    public AIController(Game game, ArrayList<Unit> units, int playerNumber, String fileName) {
         this.game = game;
         this.units = units;
         this.playerNumber = playerNumber;
         
-        aI = new SpencersAIBehavior(this);
+        aI = new SpencersAIBehavior(this, playerNumber, game.getBoard(), fileName);
     }
     
     public void setUnits(ArrayList<Unit> units){
@@ -37,7 +37,13 @@ public class AIController implements Observer {
       
             }
         }
-       
+        if(argument.getName() == GameConstants.GAME_WINNER_OA) {
+            if(playerNumber == (int) argument.getValue()) {
+                aI.commit(1);
+            }else{
+                aI.commit(-1);
+            }
+        }
     }
     
     

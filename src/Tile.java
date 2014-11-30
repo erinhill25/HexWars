@@ -8,6 +8,7 @@ import java.util.*;
 public class Tile extends Entity {
     protected static int  idCounter = 0;
     protected final  int  id; //useful for debugging
+    protected final  int  xIndex, yIndex;
     protected Polygon     polyGon;
     protected ColorScheme colors;
     protected int         colorIdx;
@@ -25,7 +26,8 @@ public class Tile extends Entity {
      * @param colors the ColorScheme to specify color
      * @param baseColorIndex the index into the ColorScheme's base colors
      */
-    protected Tile(Polygon shape, int centerX, int centerY, int numSides, ColorScheme colors, int baseColorIndex){
+    protected Tile(Polygon shape, int centerX, int centerY, int numSides,
+            ColorScheme colors, int baseColorIndex, int xIndex, int yIndex){
         polyGon     = shape;
         adjTiles    = new Tile[numSides];
         colorIdx    = baseColorIndex;
@@ -33,6 +35,8 @@ public class Tile extends Entity {
         isActive    = true;
         x = centerX;
         y = centerY;
+        this.xIndex = xIndex;
+        this.yIndex = yIndex;
         highLight   = TileStatus.NONE;
         id          = idCounter;
         idCounter++;
@@ -151,6 +155,22 @@ public class Tile extends Entity {
      */
     public double getY(){
         return y;
+    }
+    
+    /**
+     * Returns the x index of the Tile within the Board.
+     * @return the x index of the Tile within the Board.
+     */
+    public int getXIndex(){
+        return xIndex;
+    }
+    
+    /**
+     * Returns the y index of the Tile within the Board.
+     * @return the y index of the Tile within the Board.
+     */
+    public int getYIndex(){
+        return yIndex;
     }
     
     /**

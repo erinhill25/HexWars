@@ -11,16 +11,19 @@ public class Board extends Entity {
     protected Tile        lastSelected;
     protected Tile[]      lastHighlighted;
     protected boolean 	  freeze;
+    protected int xSize, ySize;
     
     /**
      * Constructor.
      * @param tiles an array of Tiles
      * @param units a UnitHandler
      */
-    protected Board(Tile[] tiles, UnitHandler units){
+    protected Board(Tile[] tiles, UnitHandler units, int xSize, int ySize){
         tileList     = tiles;
         this.units   = units;
         lastSelected = null;
+        this.xSize = xSize;
+        this.ySize = ySize;
         freeze=false;
     }
     
@@ -29,6 +32,14 @@ public class Board extends Entity {
     }
     public void unfreeze() {
     	freeze=false;
+    }
+    
+    public int getXSize() {
+        return xSize;
+    }
+    
+    public int getYSize() {
+        return ySize;
     }
     
     public Tile getTileAtCoords(int x, int y) {

@@ -51,10 +51,9 @@ public class CsvBoardFactory implements BoardFactory{
             for(int j = 0; j < initMatrix[i].length; j++){
                 tileInit = initMatrix[i][j];
                 if(tileInit.charAt(0) != 'V'){
-                	
                 	int colorIdx = Integer.parseInt(tileInit.substring(1, 2)); 
                     tileMatrix[i][j] = 
-                            new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,colorIdx);
+                            new Tile(createHex(j,i),(int)centerX,(int)centerY,6,colors,colorIdx,j,i);
                     if(tileInit.charAt(0) == 'A'){
                         switch(tileInit.charAt(2)){
                             case 'V':
@@ -111,7 +110,8 @@ public class CsvBoardFactory implements BoardFactory{
             }
         }
         
-        return (new Board(tiles.toArray(new Tile[tiles.size()]), units));
+        return (new Board(tiles.toArray(new Tile[tiles.size()]), units,
+                tileMatrix[0].length, tileMatrix.length));
     }
     
     /**
