@@ -31,6 +31,8 @@ public class Unit extends Entity {
 	
 	public Tile[] getPossibleMoveLocations() {
 		
+		System.out.println(this.tile.id);
+		
 		return this.tile.getAdjs();
 		
 	}
