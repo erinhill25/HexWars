@@ -18,10 +18,10 @@ import java.awt.*;
  *          a ColorScheme index
  *      unit specifier
  *          'V' means there's no Unit on the Tile
- *          'P' means there's a basic Soldier of Player 0 on the Tile
- *          'S' means there's a basic Soldier of Player 1 on the Tile
- *          'K' means there's a King of Player 0 on the Tile
- *          'Q' means there's a King of Player 1 on the Tile
+ *          'S' or 's' means there's a basic Soldier of Player 0 or 1 on the Tile
+ *          'K' or 'k' means there's a King of Player 0 or 1 on the Tile
+ *          'N' or 'n' means there's a Knight of Player 0 or 1 on the Tile
+ *          'B' or 'b' means there's a Bishop of Player 0 or 1 on the Tile
  */
 public class CsvBoardFactory implements BoardFactory{
     int    inRad;    //hexagon inscribed radius

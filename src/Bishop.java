@@ -1,5 +1,8 @@
 
 public class Bishop extends Unit{
+    static int[] BLUE = {96,255,148,204};
+    static int[] SECONDARY = {64,192,102,153};
+    static int[] TAINT = {32,128,56,102};
 
 	Tile[] bishopTiles = new Tile[6];
 	
