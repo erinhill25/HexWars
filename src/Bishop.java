@@ -1,6 +1,8 @@
 
 public class Bishop extends Unit{
 
+	Tile[] bishopTiles = new Tile[6];
+	
 	public Bishop(int owner, Tile tile, double radius) {
 		super(owner, tile, radius);
 		
@@ -14,7 +16,6 @@ public class Bishop extends Unit{
 		 * Movable tiles will be at most 6, moving only 2 spaces at a time.
 		 * 
 		 */
-		Tile[] bishopTiles = new Tile[6];
 		
 		int j; // To keep track of i+1
 		
@@ -29,8 +30,15 @@ public class Bishop extends Unit{
 			else
 				j = i+1;
 			
-			//Adjacent tile's adjacent tile at same index is appropriate tile
-			bishopTiles[i] = this.tile.getAdj(i).getAdj(j);
+			/*
+			 * Adjacent tile's adjacent tile at same index is appropriate tile to return as reachable
+			 * 
+			 */
+			
+			if(this.tile.getAdj(i) != null && this.tile.getAdj(i).getAdj(j) != null) {
+				bishopTiles[i] = this.tile.getAdj(i).getAdj(j);
+			}
+			
 		}
 		
 		return bishopTiles;
