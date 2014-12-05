@@ -42,8 +42,8 @@ public class Knight extends Unit{
 	
 	void render(Graphics2D g) {
 	    if(owner==0){
-            g.setPaint(new GradientPaint((float)(x-rad/4), (float)y, new Color(TAINT[0],SECONDARY[0],BLUE[0]), 
-                    (float)(x+rad/4), (float)y, new Color(TAINT[1],SECONDARY[1],BLUE[1])));
+            g.setPaint(new GradientPaint((float)(x-rad/4), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
+                    (float)(x+rad/4), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
         }else{
             g.setPaint(new GradientPaint((float)(x-rad/4), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
                     (float)(x+rad/4), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
@@ -53,8 +53,8 @@ public class Knight extends Unit{
         g.fill(rectangle);
         g.fill(bottomEllipse);
         if(owner==0){
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(TAINT[0],SECONDARY[0],BLUE[0]), 
-                    (float)(x+rad), (float)y, new Color(TAINT[1],SECONDARY[1],BLUE[1])));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
+                    (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
         }else{
             g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
                     (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));

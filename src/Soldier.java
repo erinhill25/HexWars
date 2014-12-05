@@ -18,8 +18,8 @@ public class Soldier extends Unit {
 	    Rectangle2D.Double rectangle = new Rectangle2D.Double(x-rad, y-rad*4/15, rad*2, rad*8/15);
         Ellipse2D.Double bottomEllipse = new Ellipse2D.Double(x-rad, y-rad*4/15, rad*2, rad*16/15);
 	    if(owner==0){
-	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(TAINT[0],SECONDARY[0],BLUE[0]), 
-	                (float)(x+rad), (float)y, new Color(TAINT[1],SECONDARY[1],BLUE[1])));
+	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
+	                (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
 	    }else{
 	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
                     (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
@@ -28,8 +28,8 @@ public class Soldier extends Unit {
 	    g.fill(bottomEllipse);
         Ellipse2D.Double topEllipse = new Ellipse2D.Double(x-rad, y-rad*.8, rad*2, rad*16/15);
         if(owner==0){
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(TAINT[2],SECONDARY[2],BLUE[2]), 
-                    (float)(x+rad), (float)y, new Color(TAINT[3],SECONDARY[3],BLUE[3])));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[2],TAINT[2]-32,TAINT[2]-32), 
+                    (float)(x+rad), (float)y, new Color(BLUE[3],TAINT[3]-32,TAINT[3]-32)));
         }else{
             g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[2],TAINT[2],BLUE[2]), 
                     (float)(x+rad), (float)y, new Color(SECONDARY[3],TAINT[3],BLUE[3])));
