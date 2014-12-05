@@ -69,6 +69,21 @@ public class King extends Unit {
         g.fill(arc);
         arc = new Arc2D.Double(rectangle, 240, 30, Arc2D.PIE);
         g.fill(arc);
+        if(owner==0){
+            Color[] colors = {new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32),
+                    new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32)};
+            RadialGradientPaint p =
+                new RadialGradientPaint(center, (float)(rad*2/15), dist, colors);
+            g.setPaint(p);
+        }else{
+            Color[] colors = {new Color(SECONDARY[1],TAINT[1],BLUE[1]),
+                    new Color(SECONDARY[0],TAINT[0],BLUE[0])};
+            RadialGradientPaint p =
+                new RadialGradientPaint(center, (float)(rad*2/15), dist, colors);
+            g.setPaint(p);
+        }
+        ellipse = new Ellipse2D.Double(x-rad*2/15, y-rad*2/15, rad*4/15, rad*4/15);
+        g.fill(ellipse);
     }
 	
 }
