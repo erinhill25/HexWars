@@ -67,6 +67,9 @@ public class Bishop extends Unit{
         Arc2D.Double arc = new Arc2D.Double(rectangle, 240, 60, Arc2D.PIE);
         g.fill(arc);
         g.fill(ellipse);
+        if(DEBUG){
+            super.render(g);
+        }
     }
 
 }

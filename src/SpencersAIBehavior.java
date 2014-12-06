@@ -117,7 +117,7 @@ public class SpencersAIBehavior extends AIBehavior {
     @Override
     public void makeMove(Unit unit){
         // Decide what tile to move to
-        Tile[] future = unit.getTile().getAdjs();
+        Tile[] future = unit.getPossibleMoveLocations();
         Tile current = unit.getTile();
         int[] curWeights = weights[current.getXIndex()][current.getYIndex()];
         int max = 0;
@@ -127,16 +127,18 @@ public class SpencersAIBehavior extends AIBehavior {
         for(int i = 0; i < curWeights.length; i++){
             tempPlayer = -1;
             temp = curWeights[i];
-            if(future[i] != null && future[i].getUnit() != null){
-                tempPlayer = future[i].getUnit().getPlayer();
-                if(tempPlayer != player){
-                    if(temp > 0) temp += temp*2 + 1;
-                    else temp -= temp*2 + 1;
+            if(future[i] != null && future[i].isThisThingOn()){
+                if(future[i].getUnit() != null){
+                    tempPlayer = future[i].getUnit().getPlayer();
+                    if(tempPlayer != player){
+                        if(temp >= 0) temp += temp*2 + 1;
+                        else temp += -(temp*2) + 1;
+                    }
                 }
-            }
-            if(temp >= max && tempPlayer != player){
-                max = temp;
-                maxIndex = i;
+                if(temp >= max && tempPlayer != player){
+                    max = temp;
+                    maxIndex = i;
+                }
             }
         }
         controller.makeMove(unit, future[maxIndex]);

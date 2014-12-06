@@ -2,7 +2,8 @@ import java.awt.*;
 import java.util.*;
 
 public class Unit extends Entity {
-
+    protected static int  idCounter = 0;
+    protected final  int  id;
 	final int speed = 3;
 	int owner;
 	int movesRemaining, possibleMoves;
@@ -27,6 +28,9 @@ public class Unit extends Entity {
 			System.out.println("Owner out of bounds, player number either 0 or 1.");
 		
 		movesRemaining = possibleMoves;
+		
+		id = idCounter;
+		++idCounter;
 	}
 	
 	public Tile[] getPossibleMoveLocations() {
@@ -44,10 +48,8 @@ public class Unit extends Entity {
 	}
 	
 	void render(Graphics2D g) {
-	
-		g.setPaint(new GradientPaint(0, 0, new Color(6, 28, 100), 20, 20,
-	       new Color(5, 7, 100, 27), true));
-		g.fillOval((int) (x-rad), (int) (y-rad), (int) rad*2, (int) rad*2);
+        g.setColor(Color.BLACK);
+        g.drawString((id+""), (float)(x-rad/2), (float)(y-rad/2));
 	}
 	
 	public void clearHistory(){

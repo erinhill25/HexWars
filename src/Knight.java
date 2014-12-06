@@ -31,8 +31,10 @@ public class Knight extends Unit{
 		for(int i = 0; i < this.tile.getAdjs().length; i++) {
 			
 			if(this.tile.getAdj(i) != null && this.tile.getAdj(i).getAdj(i) != null) {
-				//Adjacent tile's adjacent tile at same index is appropriate tile
-				knightTiles[i] = this.tile.getAdj(i).getAdj(i);
+			    if(this.tile.getAdj(i).isThisThingOn() && this.tile.getAdj(i).getAdj(i).isThisThingOn()) {
+	                //Adjacent tile's adjacent tile at same index is appropriate tile
+	                knightTiles[i] = this.tile.getAdj(i).getAdj(i);
+	            }
 			}
 			
 		}
@@ -63,5 +65,8 @@ public class Knight extends Unit{
         Arc2D.Double arc = new Arc2D.Double(x-rad, y-rad*16/15, rad*2, rad*1.6, 0, 180, Arc2D.PIE);
         g.fill(topEllipse);
         g.fill(arc);
+        if(DEBUG){
+            super.render(g);
+        }
     }
 }

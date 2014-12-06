@@ -205,10 +205,9 @@ public class Tile extends Entity {
                 tacUnit.render(g2D);
             } 
         }else{
-        	
-        	
             g2D.setColor(colors.inactive);
             g2D.fill(polyGon);
         }
+        if(DEBUG) g2D.drawString((id+""), (float)x, (float)y);
     }
 }

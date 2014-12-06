@@ -84,6 +84,9 @@ public class King extends Unit {
         }
         ellipse = new Ellipse2D.Double(x-rad*2/15, y-rad*2/15, rad*4/15, rad*4/15);
         g.fill(ellipse);
+        if(DEBUG){
+            super.render(g);
+        }
     }
 	
 }
