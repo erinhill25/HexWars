@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 
 
 public abstract class Entity {
-    protected static boolean DEBUG = false;
+    protected static boolean DEBUG = true;
 
 	protected double x,y;
 	

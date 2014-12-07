@@ -27,7 +27,7 @@ public class GameController extends MouseAdapter implements ActionListener {
 		}
 		
 		if(playerTwoType == GameConstants.AI_PLAYER_MIA) {
-			aI2 = new AIController(this.game, game.getUnitHandler().getPlayerUnits(1), 1, "AI1");	
+			aI2 = new AIController(this.game, game.getUnitHandler().getPlayerUnits(1), 1, "AI2");	
 			
 			game.addObserver(aI2);
 		}

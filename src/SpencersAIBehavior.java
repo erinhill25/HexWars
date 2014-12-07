@@ -112,6 +112,7 @@ public class SpencersAIBehavior extends AIBehavior {
                 }
             }
         }
+        fileWriter.close();
     }
 
     @Override
