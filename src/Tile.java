@@ -137,6 +137,18 @@ public class Tile extends Entity {
     }
     
     /**
+     * Gets the side index where an adjacent Tile resides.
+     * @param adjacent a Tile that should be adjacent.
+     * @return the Index at which the Tile is adjacent. -1 if it's not adjacent.
+     */
+    public int getSideIndex(Tile adjacent){
+        for(int i = 0; i < adjTiles.length; i++){
+            if(adjTiles[i] == adjacent) return i;
+        }
+        return -1;
+    }
+    
+    /**
      * Currently does nothing because Tile isn't animated.
      */
     public void update(){}
