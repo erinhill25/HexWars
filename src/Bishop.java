@@ -28,15 +28,15 @@ public class Bishop extends Unit{
 		 */
 		
 		int j; // To keep track of i+1
-		
+		int k; // To keep track of i-1
 		
 		//nullify old movable tiles
 		for(int i = 0; i < 6; i++) {
 			bishopTiles[i] = null;
 		}
 		
-		
-		for(int i = 0; i < this.tile.getAdjs().length; i++) {
+		Tile[] adjs = tile.getAdjs();
+		for(int i = 0; i < adjs.length; i++) {
 			
 			/*
 			 * If we are pulling adjacent tiles from adjacent tiles, and
@@ -48,15 +48,21 @@ public class Bishop extends Unit{
 			else
 				j = i+1;
 			
+			if(i == 0)
+			    k = 5;
+			else
+			    k = i-1;
+			
 			/*
 			 * Adjacent tile's adjacent tile at same index is appropriate tile to return as reachable
 			 * 
 			 */
-			
-			if(this.tile.getAdj(i) != null && this.tile.getAdj(i).getAdj(j) != null) {
-				bishopTiles[i] = this.tile.getAdj(i).getAdj(j);
+			if(adjs[i] != null){
+			    bishopTiles[i] = adjs[i].getAdj(j);
+			    if(bishopTiles[k] == null){
+			        bishopTiles[k] = adjs[i].getAdj(k);
+			    }
 			}
-			
 		}
 		
 		return bishopTiles;
