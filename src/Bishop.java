@@ -29,12 +29,20 @@ public class Bishop extends Unit{
 		
 		int j; // To keep track of i+1
 		
+		
+		//nullify old movable tiles
+		for(int i = 0; i < 6; i++) {
+			bishopTiles[i] = null;
+		}
+		
+		
 		for(int i = 0; i < this.tile.getAdjs().length; i++) {
 			
 			/*
 			 * If we are pulling adjacent tiles from adjacent tiles, and
 			 * we want the second set of tiles to have the opposite
 			 */
+			
 			if(i == 5)
 				j = 0;
 			else
