@@ -15,24 +15,27 @@ public class Soldier extends Unit {
 	}
 	
 	void render(Graphics2D g) {
+		
+		int alpha = (movesRemaining > 0) ? 255 : 132;
+		
 	    Rectangle2D.Double rectangle = new Rectangle2D.Double(x-rad, y-rad*4/15, rad*2, rad*8/15);
         Ellipse2D.Double bottomEllipse = new Ellipse2D.Double(x-rad, y-rad*4/15, rad*2, rad*16/15);
 	    if(owner==0){
-	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
-	                (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
+	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32, alpha), 
+	                (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha)));
 	    }else{
-	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
-                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
+	        g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0], alpha), 
+                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha)));
 	    }
 	    g.fill(rectangle);
 	    g.fill(bottomEllipse);
         Ellipse2D.Double topEllipse = new Ellipse2D.Double(x-rad, y-rad*.8, rad*2, rad*16/15);
         if(owner==0){
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[2],TAINT[2]-32,TAINT[2]-32), 
-                    (float)(x+rad), (float)y, new Color(BLUE[3],TAINT[3]-32,TAINT[3]-32)));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[2],TAINT[2]-32,TAINT[2]-32, alpha), 
+                    (float)(x+rad), (float)y, new Color(BLUE[3],TAINT[3]-32,TAINT[3]-32, alpha)));
         }else{
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[2],TAINT[2],BLUE[2]), 
-                    (float)(x+rad), (float)y, new Color(SECONDARY[3],TAINT[3],BLUE[3])));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[2],TAINT[2],BLUE[2], alpha), 
+                    (float)(x+rad), (float)y, new Color(SECONDARY[3],TAINT[3],BLUE[3], alpha)));
         }
         g.fill(topEllipse);
         if(DEBUG){

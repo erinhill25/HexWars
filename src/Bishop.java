@@ -69,12 +69,15 @@ public class Bishop extends Unit{
 	}
 	
 	void render(Graphics2D g) {
+		
+		int alpha = (movesRemaining > 0) ? 255 : 128;
+		
 	    if(owner==0){
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
-                    (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32, alpha), 
+                    (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha)));
         }else{
-            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
-                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
+            g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0], alpha), 
+                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha)));
         }
         Ellipse2D.Double ellipse = new Ellipse2D.Double(x-rad, y, rad*2, rad*16/15);
         Rectangle2D.Double rectangle = new Rectangle2D.Double(x-rad*2, y-rad*49/15, rad*4, rad*4);

@@ -17,10 +17,13 @@ public class King extends Unit {
 	}
 
 	void render(Graphics2D g) {
+		
+		int alpha = (movesRemaining > 0) ? 255 : 80;
+		
         if(owner==0){
-            g.setColor(Color.RED);
+            g.setColor(new Color(212, 37, 62, alpha));
         }else{
-            g.setColor(new Color(0x8000FF));
+            g.setColor(new Color(128, 0, 255, alpha));
         }
         Ellipse2D.Double ellipse = new Ellipse2D.Double(x-rad, y-rad, rad*2, rad*2);
         g.setStroke(new BasicStroke(5));
@@ -30,14 +33,14 @@ public class King extends Unit {
         Arc2D.Double arc;
         Rectangle2D.Double rectangle;
         if(owner==0){
-            Color[] colors = {new Color(BLUE[2],TAINT[2]-32,TAINT[2]-32),
-                    new Color(BLUE[3],TAINT[3]-32,TAINT[3]-32)};
+            Color[] colors = {new Color(BLUE[2],TAINT[2]-32,TAINT[2]-32, alpha),
+                    new Color(BLUE[3],TAINT[3]-32,TAINT[3]-32, alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)(rad/2), dist, colors);
             g.setPaint(p);
         }else{
-            Color[] colors = {new Color(SECONDARY[2],TAINT[2],BLUE[2]),
-                    new Color(SECONDARY[3],TAINT[3],BLUE[3])};
+            Color[] colors = {new Color(SECONDARY[2],TAINT[2],BLUE[2], alpha),
+                    new Color(SECONDARY[3],TAINT[3],BLUE[3], alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)(rad/2), dist, colors);
             g.setPaint(p);
@@ -50,14 +53,14 @@ public class King extends Unit {
         arc = new Arc2D.Double(rectangle, 315, 120, Arc2D.CHORD);
         g.fill(arc);
         if(owner==0){
-            Color[] colors = {new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32),
-                    new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)};
+            Color[] colors = {new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32, alpha),
+                    new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)rad, dist, colors);
             g.setPaint(p);
         }else{
-            Color[] colors = {new Color(SECONDARY[0],TAINT[0],BLUE[0]),
-                    new Color(SECONDARY[1],TAINT[1],BLUE[1])};
+            Color[] colors = {new Color(SECONDARY[0],TAINT[0],BLUE[0], alpha),
+                    new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)rad, dist, colors);
             g.setPaint(p);
@@ -70,14 +73,14 @@ public class King extends Unit {
         arc = new Arc2D.Double(rectangle, 240, 30, Arc2D.PIE);
         g.fill(arc);
         if(owner==0){
-            Color[] colors = {new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32),
-                    new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32)};
+            Color[] colors = {new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha),
+                    new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32, alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)(rad*2/15), dist, colors);
             g.setPaint(p);
         }else{
-            Color[] colors = {new Color(SECONDARY[1],TAINT[1],BLUE[1]),
-                    new Color(SECONDARY[0],TAINT[0],BLUE[0])};
+            Color[] colors = {new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha),
+                    new Color(SECONDARY[0],TAINT[0],BLUE[0], alpha)};
             RadialGradientPaint p =
                 new RadialGradientPaint(center, (float)(rad*2/15), dist, colors);
             g.setPaint(p);

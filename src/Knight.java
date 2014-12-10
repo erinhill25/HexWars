@@ -43,12 +43,14 @@ public class Knight extends Unit{
 
 	
 	void render(Graphics2D g) {
+		
+		int alpha = (movesRemaining > 0) ? 255 : 80;
 	    if(owner==0){
             g.setPaint(new GradientPaint((float)(x-rad/4), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
-                    (float)(x+rad/4), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
+                    (float)(x+rad/4), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha)));
         }else{
             g.setPaint(new GradientPaint((float)(x-rad/4), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
-                    (float)(x+rad/4), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
+                    (float)(x+rad/4), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha)));
         }
         Rectangle2D.Double rectangle = new Rectangle2D.Double(x-rad/4, y, rad/2, rad*10/15);
         Ellipse2D.Double bottomEllipse = new Ellipse2D.Double(x-rad/4, y+rad*8/15, rad/2, rad*4/15);
@@ -56,10 +58,10 @@ public class Knight extends Unit{
         g.fill(bottomEllipse);
         if(owner==0){
             g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(BLUE[0],TAINT[0]-32,TAINT[0]-32), 
-                    (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32)));
+                    (float)(x+rad), (float)y, new Color(BLUE[1],TAINT[1]-32,TAINT[1]-32, alpha)));
         }else{
             g.setPaint(new GradientPaint((float)(x-rad), (float)y, new Color(SECONDARY[0],TAINT[0],BLUE[0]), 
-                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1])));
+                    (float)(x+rad), (float)y, new Color(SECONDARY[1],TAINT[1],BLUE[1], alpha)));
         }
         Ellipse2D.Double topEllipse = new Ellipse2D.Double(x-rad, y-rad*.8, rad*2, rad*16/15);
         Arc2D.Double arc = new Arc2D.Double(x-rad, y-rad*16/15, rad*2, rad*1.6, 0, 180, Arc2D.PIE);

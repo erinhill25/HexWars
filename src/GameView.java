@@ -233,7 +233,7 @@ public class GameView extends JFrame implements Observer {
 	    g.drawString("Player " + currentPlayer + "'s turn", gamePanel.getWidth()-125, gamePanel.getHeight()-30);
 	    
 	    g.setFont(new Font("Tahoma", Font.PLAIN, 24));
-	    g.setColor(new Color(57,124,212));
+	    g.setColor(new Color(255,30,2));
 	    
 	    g.drawString("Player 1", 15, 30);
 	    

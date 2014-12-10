@@ -7,7 +7,7 @@ public class Game extends Observable implements Runnable {
 	protected long lastTime;
 	protected Unit activeUnit;
 	
-	protected int currentPlayer = 0, winner=-1;
+	protected int currentPlayer = 1, winner=-1;
 	
 	protected Random rand = new Random();
 	
