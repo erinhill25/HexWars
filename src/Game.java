@@ -283,6 +283,7 @@ public class Game extends Observable implements Runnable {
 		 
 		  if(winner == activeUnit) 
 		  {
+			  activeUnit.clearHistory();
 			  loser = otherUnit;
 		
 		   	  unitHandler.removeUnit(otherUnit);

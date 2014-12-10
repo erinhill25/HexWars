@@ -30,7 +30,7 @@ public class GameView extends JFrame implements Observer {
 	JScrollPane notes = new JScrollPane(notesArea);
 	
 	GeneralSprite general = new GeneralSprite(18, 35, 80, 80);
-	Sprite frobKnobGeneral = new Sprite(WIDTH-140, 35, 80, 80, "resources/Player/frobknobgeneral80.png");
+	FrobKnobSprite frobKnob = new FrobKnobSprite(WIDTH-140, 35, 80, 80);
 	
 	private int currentPlayer = 1, movesRemaining = -1, winner = -1;
 	
@@ -54,7 +54,7 @@ public class GameView extends JFrame implements Observer {
 		this.setTitle("HexWars");
 		    
 		entities.add(general);
-		entities.add(frobKnobGeneral);
+		entities.add(frobKnob);
 		
 	    JMenuBar bar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
@@ -165,9 +165,11 @@ public class GameView extends JFrame implements Observer {
 			
 			if(winner == 1) {
 				general.setAnimation("win");
+				frobKnob.setAnimation("lose");
 			}
 			else {
 				
+				frobKnob.setAnimation("win");
 				general.setAnimation("lose");
 				
 			}
@@ -204,6 +206,7 @@ public class GameView extends JFrame implements Observer {
 	public void resetSprites() {
 		
 		general.setAnimation("default");
+		frobKnob.setAnimation("default");
 	}
 	
 	public void render(Graphics2D g) {

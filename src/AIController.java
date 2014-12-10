@@ -53,7 +53,9 @@ public class AIController implements Observer {
      */
     private void executeMoves() {
         for(int i = 0; i < units.size(); ++i) {
-            aI.makeMove(units.get(i));
+        	for(int j=0;j<units.get(i).getMovesRemaining();j++) {
+        		aI.makeMove(units.get(i));
+        	}
         }
         moves++;
         System.out.println(moves);
