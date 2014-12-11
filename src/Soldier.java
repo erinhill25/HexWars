@@ -38,7 +38,7 @@ public class Soldier extends Unit {
                     (float)(x+rad), (float)y, new Color(SECONDARY[3],TAINT[3],BLUE[3], alpha)));
         }
         g.fill(topEllipse);
-        if(DEBUG){
+        if(showIDs){
             super.render(g);
         }
     }

@@ -67,7 +67,7 @@ public class Knight extends Unit{
         Arc2D.Double arc = new Arc2D.Double(x-rad, y-rad*16/15, rad*2, rad*1.6, 0, 180, Arc2D.PIE);
         g.fill(topEllipse);
         g.fill(arc);
-        if(DEBUG){
+        if(showIDs){
             super.render(g);
         }
     }
